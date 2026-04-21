@@ -35,8 +35,26 @@
             </div>
 
             <div id="apiContent" style="text-align:center; margin:20px 0;">
-                Welcome to Paidaxing Studio
-            </div>
+    <div style="color:#aaa; font-size:1.1em; line-height:1.8;" id="yiyan">
+        Welcome to Paidaxing Studio
+    </div>
+</div>
+
+<script>
+fetch('https://v1.hitokoto.cn/?c=a&c=c')
+  .then(res => res.json())
+  .then(data => {
+    const content = data.hitokoto;
+    const from = data.from ? `-----${data.from}-----` : '';
+    document.getElementById('yiyan').innerHTML = `
+      ${content}<br>
+      <span style="color:#888; font-size:0.9em;">${from}</span>
+    `;
+  })
+  .catch(err => {
+    document.getElementById('yiyan').textContent = 'Welcome to Paidaxing Studio';
+  });
+</script>
 
             <br>
         </div>

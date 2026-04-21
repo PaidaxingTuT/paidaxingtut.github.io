@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩查询</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .controls-wrapper { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .input-group { flex: 2; min-width: 250px; }
+        .select-group { flex: 1; display: flex; gap: 10px; min-width: 200px; }
+
+        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; box-sizing: border-box; }
+        input[type="text"]:focus, select:focus { border-color: #3498db; }
+
+        button { padding: 12px 25px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+        button:hover { background: #2980b9; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+
+        .gpa-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            color: #333;
+            padding: 25px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: none;
+        }
+        .gpa-flex { display: flex; justify-content: space-around; text-align: center; }
+
+        .gpa-item h3 { font-size: 36px; margin: 0; font-weight: 700; color: #3498db; }
+        .gpa-item p { margin: 5px 0 0; color: #666; font-size: 14px; font-weight: 500; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+
+        th { background-color: #f8f9fa; color: #666; font-weight: 600; border-bottom: 2px solid #e1e4e8; }
+
+        .score-pass { color: #333; }
+        .score-excellent { color: #27ae60; font-weight: bold; }
+        .score-fail { color: #e74c3c; font-weight: bold; }
+
+        .loading { text-align: center; color: #666; margin-top: 20px; display: none; }
+        .error-msg { color: #e74c3c; background: #fdedec; padding: 10px; border-radius: 4px; margin-bottom: 15px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">成绩查询</h2>
+
+    <div id="errorBox" class="error-msg"></div>
+
+    <div class="controls-wrapper">
+        <div class="select-group">
+            <select id="xnSelect">
+                <option value="">-- 所有学年 --</option>
+            </select>
+            <select id="xqSelect">
+                <option value="">-- 所有学期 --</option>
+                <option value="3">第一学期 (秋)</option>
+                <option value="12">第二学期 (春)</option>
+                <option value="16">短学期</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="cookieInput" placeholder="在此粘贴 JSESSIONID">
+        </div>
+
+        <button id="searchBtn" onclick="fetchGrades()">查询</button>
+    </div>
+
+    <div id="gpaBox" class="gpa-card">
+        <div class="gpa-flex">
+            <div class="gpa-item">
+                <h3 id="displayGpa">0.00</h3>
+                <p>平均学分绩点 (GPA)</p>
+            </div>
+            <div class="gpa-item">
+                <h3 id="displayCredits" style="color: #555;">0</h3> <p>获得总学分</p>
+            </div>
+            <div class="gpa-item">
+                <h3 id="displayPoints" style="color: #555;">0</h3>
+                <p>绩点总和</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading" class="loading">正在查询中...</div>
+
+    <div id="resultArea" style="display: none;">
+        <table>
+            <thead>
+            <tr>
+                <th>课程名称</th>
+                <th>学分</th>
+                <th>成绩</th>
+                <th>绩点</th>
+                <th>学分绩点</th>
+                <th>性质</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    window.addEventListener('load', function() {
+        initYears();
+
+
+        const savedCookie = localStorage.getItem('lcu_jw_cookie');
+        if (savedCookie) {
+            document.getElementById('cookieInput').value = savedCookie;
+            fetchGrades();
+        }
+    });
+    
+    function initYears() {
+        const select = document.getElementById('xnSelect');
+        const currentYear = new Date().getFullYear();
+        for (let i = 0; i < 5; i++) {
+            let year = currentYear - i;
+            let option = document.createElement('option');
+            option.value = year;
+            option.text = `${year}-${year+1}学年`;
+            select.appendChild(option);
+        }
+    }
+
+    async function fetchGrades() {
+        const cookieInput = document.getElementById('cookieInput');
+        const cookie = cookieInput.value.trim();
+        const xnm = document.getElementById('xnSelect').value;
+        const xqm = document.getElementById('xqSelect').value;
+
+        const btn = document.getElementById('searchBtn');
+        const loading = document.getElementById('loading');
+        const resultArea = document.getElementById('resultArea');
+        const gpaBox = document.getElementById('gpaBox');
+        const errorBox = document.getElementById('errorBox');
+
+        errorBox.style.display = 'none';
+        resultArea.style.display = 'none';
+        gpaBox.style.display = 'none';
+
+        if (!cookie) {
+            showError("请先填写 Cookie！");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "查询中...";
+        loading.style.display = 'block';
+
+        try {
+            const formData = new FormData();
+            formData.append('cookie', cookie);
+            formData.append('xnm', xnm);
+            formData.append('xqm', xqm);
+
+            const response = await fetch('../api/score.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'error') {
+                // 如果是 Cookie 过期，清除本地存储，防止死循环
+                if(data.msg.includes('过期') || data.msg.includes('异常')) {
+                    localStorage.removeItem('lcu_jw_cookie');
+                }
+                throw new Error(data.msg);
+            }
+
+            localStorage.setItem('lcu_jw_cookie', cookie);
+
+
+            if (data.items && data.items.length > 0) {
+                renderTable(data.items);
+                renderGPA(data.calculated_data);
+                resultArea.style.display = 'block';
+                gpaBox.style.display = 'block';
+            } else {
+                showError("查询成功，但该时间段内没有成绩数据。");
+            }
+
+        } catch (err) {
+            showError(err.message || "请求失败");
+        } finally {
+            loading.style.display = 'none';
+            btn.disabled = false;
+            btn.innerText = "查询";
+        }
+    }
+
+    function renderGPA(data) {
+        if(!data) return;
+
+        const gpaValue = parseFloat(data.average_gpa);
+        const gpaEl = document.getElementById('displayGpa');
+
+        gpaEl.innerText = data.average_gpa;
+
+        if (gpaValue < 2.0) {
+            gpaEl.style.color = '#e74c3c';
+        } else if (gpaValue > 4.0) {
+            gpaEl.style.color = '#27ae60';
+        } else {
+            gpaEl.style.color = '#3498db';
+        }
+
+        document.getElementById('displayCredits').innerText = data.total_credits;
+        document.getElementById('displayPoints').innerText = data.total_credit_points;
+    }
+
+    function renderTable(items) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+
+        items.forEach(item => {
+            const tr = document.createElement('tr');
+
+            let score = parseFloat(item.cj);
+            let scoreClass = 'score-pass';
+
+            if (!isNaN(score)) {
+                if (score < 60) scoreClass = 'score-fail';
+                else if (score >= 90) scoreClass = 'score-excellent';
+            } else {
+                if (item.cj.includes("不及格") || item.cj.includes("不通过")) {
+                    scoreClass = 'score-fail';
+                }
+            }
+
+            let xfjd = item.xfjd !== undefined ? item.xfjd : (parseFloat(item.xf) * parseFloat(item.jd)).toFixed(1);
+
+            tr.innerHTML = `
+                <td>${item.kcmc}</td>
+                <td>${item.xf}</td>
+                <td class="${scoreClass}">${item.cj}</td>
+                <td>${item.jd}</td>
+                <td>${xfjd}</td>
+                <td><span style="font-size:12px; background:#eee; padding:2px 6px; border-radius:4px; color:#555;">${item.kcxzmc}</span></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function showError(msg) {
+        const errorBox = document.getElementById('errorBox');
+        errorBox.innerText = msg;
+        errorBox.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

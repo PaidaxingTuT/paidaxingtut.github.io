@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>派大星工作室-刷课进度查询系统</title>
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#06b6d4',
+            dark: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617'
+            }
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
+            'hover': '0 20px 40px -5px rgba(0, 0, 0, 0.15)',
+          }
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .bg-gradient-dark {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      }
+      .bg-gradient-light {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-inter bg-gray-50 dark:bg-dark-900 min-h-screen flex flex-col text-gray-800 dark:text-gray-200 transition-custom overflow-x-hidden">
+  <header class="bg-white dark:bg-dark-800 shadow-sm sticky top-0 z-50 transition-custom border-b border-gray-200 dark:border-dark-700">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white transition-custom">刷课进度查询系统</h1>
+      </div>
+      
+      <button id="themeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600 transition-custom focus:outline-none shadow-sm" title="切换模式">
+        ☀️
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+    <section class="max-w-2xl mx-auto mb-12">
+      <div class="bg-white dark:bg-dark-800 rounded-2xl shadow-card p-6 md:p-8 transition-custom hover:shadow-hover border border-gray-200 dark:border-dark-700">
+        <div class="text-center mb-8">
+          <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-gray-900 dark:text-white mb-2 transition-custom">刷课进度查询</h2>
+          <p class="text-gray-500 dark:text-gray-400 transition-custom">请输入您的下单账号查询相关进度信息</p>
+          <p class="text-gray-500 dark:text-gray-400 transition-custom">低价刷课请返回首页添加派大星QQ😊</p>
+          <p class="text-gray-400 dark:text-gray-500 text-sm mt-1 transition-custom">如果查询不到，请多点几次按钮</p>
+        </div>
+        
+        <form id="queryForm" class="space-y-6" action="javascript:void(0)">
+          <div class="space-y-2">
+            <label for="username" class="block text-sm font-medium text-gray-600 dark:text-gray-300 transition-custom">下单账号</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 dark:text-gray-500">👤</span>
+              <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                required
+                class="w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-[#0a0f1a] border border-gray-300 dark:border-dark-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-custom text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600"
+                placeholder="请输入您的下单账号(平台账号或手机号)"
+              >
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="w-full bg-gradient-light dark:bg-gradient-dark hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition-custom flex items-center justify-center space-x-2 shadow-lg border border-transparent dark:border-gray-700"
+          >
+            <span>🔍</span>
+            <span>查询进度</span>
+          </button>
+        </form>
+      </div>
+    </section>
+    
+    <section id="orderResult" class="max-w-4xl mx-auto hidden">
+      <div class="bg-white dark:bg-dark-800 rounded-2xl shadow-card p-6 md:p-8 transition-custom border border-gray-200 dark:border-dark-700">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white transition-custom">进度查询结果</h3>
+          <span id="resultCount" class="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-dark-700 px-3 py-1 rounded-full transition-custom">0 条进度</span>
+        </div>
+        
+        <div id="orderList" class="space-y-6 max-h-[600px] overflow-y-auto pr-2">
+          <div class="text-center text-gray-500 dark:text-gray-400 py-12" id="initialState">
+            <span class="text-4xl mb-4 text-gray-400 dark:text-gray-600 block transition-custom">🔍</span>
+            <p>请输入账号查询进度信息</p>
+          </div>
+          <div class="text-center text-gray-500 dark:text-gray-400 py-12 hidden" id="loadingState">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent mb-4"></div>
+            <p>正在为您同步最新进度，请稍候...</p>
+          </div>
+          <div class="text-center text-gray-500 dark:text-gray-400 py-12 hidden" id="emptyState">
+            <span class="text-4xl mb-4 text-gray-400 dark:text-gray-600 block transition-custom">📭</span>
+            <p>未查询到相关进度信息，请核对账号是否有误或稍后再试</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white dark:bg-dark-800 text-gray-500 dark:text-gray-400 py-8 border-t border-gray-200 dark:border-dark-700 transition-custom mt-auto">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center text-sm">
+        <div class="mb-4 md:mb-0">
+          <p>&copy; 2025 大星科技. 保留所有权利.</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="http://www.pdxstudio.site" class="hover:text-gray-900 dark:hover:text-white transition-custom"><span>返回首页</span></a>
+          <a href="http://www.pdxstudio.site/pay" class="hover:text-gray-900 dark:hover:text-white transition-custom"><span>赞助我们</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="fixed top-4 right-4 bg-white dark:bg-dark-800 text-gray-800 dark:text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-300 flex items-center space-x-2 z-50 border border-gray-200 dark:border-dark-700 opacity-0 translate-x-12 pointer-events-none">
+    <span id="toastIcon">ℹ️</span>
+    <span id="toastMessage">操作提示</span>
+  </div>
+
+  <script>
+    const API_URL = './api/api.php'; 
+    
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    const queryForm = document.getElementById('queryForm');
+    const orderResult = document.getElementById('orderResult');
+    const orderList = document.getElementById('orderList');
+    const initialState = document.getElementById('initialState');
+    const loadingState = document.getElementById('loadingState');
+    const emptyState = document.getElementById('emptyState');
+    const resultCount = document.getElementById('resultCount');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastIcon = document.getElementById('toastIcon');
+    let toastTimeout;
+    
+    // 主题切换逻辑
+    function updateThemeIcon() {
+      if (htmlElement.classList.contains('dark')) {
+        themeToggle.textContent = '☀️';
+      } else {
+        themeToggle.textContent = '🌙';
+      }
+    }
+    
+    updateThemeIcon();
+    
+    themeToggle.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+      updateThemeIcon();
+    });
+
+    orderResult.classList.add('hidden');
+    
+    queryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const username = document.getElementById('username').value.trim();
+      
+      if (!username) {
+        showToast('请填写需要查询的下单账号', 'warning');
+        return;
+      }
+      
+      orderResult.classList.remove('hidden');
+      initialState.classList.add('hidden');
+      loadingState.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      orderList.innerHTML = ''; 
+      orderList.appendChild(initialState);
+      orderList.appendChild(loadingState);
+      orderList.appendChild(emptyState);
+      
+      try {
+        const response = await fetch(`${API_URL}?user=${encodeURIComponent(username)}`, {
+          method: 'GET'
+        });
+        
+        const data = await response.json();
+        
+        loadingState.classList.add('hidden');
+        
+        if (data.code === 200 && data.data) {
+          const orders = Array.isArray(data.data) ? data.data : [data.data];
+          
+          if (orders.length > 0) {
+            renderOrders(orders);
+            resultCount.textContent = `为您查询到 ${orders.length} 条记录`;
+            showToast(data.msg || '查询成功，已获取最新进度', 'success');
+          } else {
+            emptyState.classList.remove('hidden');
+            resultCount.textContent = `0 条记录`;
+            showToast('暂无记录，请检查账号是否输入正确', 'info');
+          }
+        } else {
+          emptyState.classList.remove('hidden');
+          resultCount.textContent = `0 条记录`;
+          showToast(data.msg || '未查询到数据或系统繁忙', 'error');
+        }
+      } catch (error) {
+        loadingState.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        resultCount.textContent = `0 条记录`;
+        showToast('网络连接异常或接口解析失败', 'error');
+      }
+    });
+    
+    function renderOrders(orders) {
+      initialState.classList.add('hidden');
+      loadingState.classList.add('hidden');
+      emptyState.classList.add('hidden');
+      
+      orders.forEach(order => {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'border border-gray-200 dark:border-dark-700 rounded-xl p-4 bg-gray-50 dark:bg-dark-700 text-sm mb-4 transition-custom hover:shadow-md';
+        
+        const formatValue = (value) => value || '暂无数据';
+        
+        const getStatusClass = (status) => {
+          switch(status) {
+            case '进行中': return 'text-blue-500 dark:text-blue-400';
+            case '已完成': return 'text-green-500 dark:text-green-400';
+            case '未开始': return 'text-yellow-500 dark:text-yellow-400';
+            case '已取消': return 'text-gray-500 dark:text-gray-400';
+            default: return 'text-purple-500 dark:text-purple-400';
+          }
+        };
+        
+        orderItem.innerHTML = `
+          <div class="flex justify-between mb-3 border-b border-gray-200 dark:border-dark-600 pb-2 transition-custom">
+            <span class="font-bold text-gray-900 dark:text-white text-base transition-custom">进度ID: ${formatValue(order.id)}</span>
+            <span class="font-medium ${getStatusClass(order.status)}">${formatValue(order.status)}</span>
+          </div>
+          <div class="text-gray-700 dark:text-gray-300 mb-1 transition-custom"><span class="text-gray-500 dark:text-gray-400 mr-1 transition-custom">平台:</span> ${formatValue(order.ptname)}</div>
+          <div class="text-gray-700 dark:text-gray-300 mb-1 transition-custom"><span class="text-gray-500 dark:text-gray-400 mr-1 transition-custom">学校:</span> ${formatValue(order.school)}</div>
+          <div class="text-gray-700 dark:text-gray-300 mb-1 transition-custom"><span class="text-gray-500 dark:text-gray-400 mr-1 transition-custom">课程:</span> ${formatValue(order.kcname)}</div>
+          <div class="text-gray-700 dark:text-gray-300 mb-1 transition-custom"><span class="text-gray-500 dark:text-gray-400 mr-1 transition-custom">账号:</span> ${formatValue(order.user)}</div>
+          <div class="text-gray-700 dark:text-gray-300 mb-2 transition-custom"><span class="text-gray-500 dark:text-gray-400 mr-1 transition-custom">时间:</span> ${formatValue(order.addtime)}</div>
+          <div class="text-primary font-medium mb-2"><span class="text-gray-500 dark:text-gray-400 mr-1 font-normal transition-custom">进度:</span> ${formatValue(order.process)}</div>
+          
+          <div class="mt-2 pt-2 border-t border-gray-200 dark:border-dark-600 transition-custom">
+            <div class="text-gray-500 dark:text-gray-400 mb-1 transition-custom">学习详情:</div>
+            <div class="text-xs text-gray-600 dark:text-gray-300 break-words whitespace-pre-wrap leading-relaxed transition-custom">${formatValue(order.remarks)}</div>
+          </div>
+        `;
+        
+        orderList.appendChild(orderItem);
+      });
+    }
+    
+    function showToast(message, type = 'info') {
+      clearTimeout(toastTimeout);
+      toastMessage.textContent = message;
+      
+      switch(type) {
+        case 'success': toastIcon.textContent = '✅'; break;
+        case 'error': toastIcon.textContent = '❌'; break;
+        case 'warning': toastIcon.textContent = '⚠️'; break;
+        default: toastIcon.textContent = 'ℹ️';
+      }
+      
+      // 显示提示框
+      toast.classList.remove('opacity-0', 'translate-x-12', 'pointer-events-none');
+      
+      // 3秒后隐藏提示框
+      toastTimeout = setTimeout(() => { 
+        toast.classList.add('opacity-0', 'translate-x-12', 'pointer-events-none'); 
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

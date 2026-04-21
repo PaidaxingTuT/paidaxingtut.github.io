@@ -1,0 +1,10 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+$json = file_get_contents('http://v1.hitokoto.cn/?c=a&c=c');
+$arr = json_decode($json, true);
+
+echo '<div style="color:#aaa; font-size:1.1em; line-height:1.8;">';
+echo htmlspecialchars($arr['hitokoto']) . '<br>';
+echo '<span style="color:#888; font-size:0.9em;">-----' . htmlspecialchars($arr['from']) . '-----</span>';
+echo '</div>';
+?>

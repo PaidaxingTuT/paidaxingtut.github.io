@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PopWord 弹词 - 边浏览网页边记单词</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/img/logo.ico" />
+    <style>
+      /* 默认夜间模式变量 */
+      :root {
+        --bg: #0f1419;
+        --surface: #1a2332;
+        --accent: #3b82f6;
+        --accent-soft: rgba(59, 130, 246, 0.15);
+        --green: #22c55e;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --border: #30363d;
+      }
+
+      /* 日间模式变量 */
+      body.light-mode {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --accent: #2563eb;
+        --accent-soft: rgba(37, 99, 235, 0.1);
+        --text: #0f1419;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Noto Sans SC",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+
+      /* 右上角组合控制面板 */
+      .top-controls {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        display: flex;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        overflow: hidden;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .top-controls:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .nav-home {
+        padding: 8px 16px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.2s;
+      }
+      .nav-home:hover {
+        background-color: var(--accent-soft);
+      }
+
+      .control-divider {
+        width: 1px;
+        height: 20px;
+        background-color: var(--border);
+      }
+
+      .theme-toggle {
+        padding: 8px 16px;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+      }
+      .theme-toggle:hover {
+        background-color: var(--accent-soft);
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      header {
+        padding: 48px 0 64px;
+        text-align: center;
+        position: relative;
+      }
+      .logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      body.light-mode .logo {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .tagline {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        font-weight: 400;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px var(--accent-soft);
+      }
+      .cta.secondary {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .cta.secondary:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta.gray {
+        background: #4b5563;
+        color: #fff;
+      }
+      .cta.gray:hover {
+        box-shadow: 0 8px 24px rgba(75, 85, 99, 0.35);
+      }
+
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+      }
+
+      /* 新增：在线体验提示动画与样式 */
+      .demo-hint {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 36px;
+        padding: 10px 20px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        animation: pulse 2s infinite;
+        cursor: default;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+        }
+      }
+
+      section {
+        padding: 40px 0;
+        border-top: 1px solid var(--border);
+      }
+      section h2 {
+        font-size: 1.35rem;
+        margin-bottom: 20px;
+        color: var(--text);
+      }
+      .features {
+        display: grid;
+        gap: 16px;
+      }
+      .feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--surface);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      .feature h3 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .feature p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      /* 安装方法样式 */
+      .steps {
+        list-style: none;
+        counter-reset: step;
+      }
+      .steps li {
+        counter-increment: step;
+        padding: 12px 0 12px 44px;
+        position: relative;
+        border-bottom: 1px solid var(--border);
+      }
+      .steps li:last-child {
+        border-bottom: none;
+      }
+      .steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        width: 28px;
+        height: 28px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .changelog-box {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 12px;
+      }
+
+      .changelog-box::-webkit-scrollbar {
+        width: 6px;
+      }
+      .changelog-box::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .changelog-box::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 10px;
+      }
+      .changelog-box::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+      }
+
+      .changelog-list {
+        list-style: none;
+      }
+      .changelog-list li {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .changelog-list li:first-child {
+        padding-top: 0;
+      }
+      .changelog-list li:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .version-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      /* 抽离背景色 */
+      .version-badge {
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+
+      .blue {
+        color: var(--accent);
+      }
+      .red {
+        color: #ef4444;
+      }
+      .changelog-list p {
+        font-size: 0.95rem;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      footer {
+        padding: 48px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .copyright {
+        margin-top: 24px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        opacity: 0.8;
+      }
+
+      /* 移动端屏幕适配 */
+      @media (max-width: 600px) {
+        .top-controls {
+          position: relative;
+          top: 0;
+          right: 0;
+          margin: 24px auto 0;
+          width: max-content;
+        }
+        header {
+          padding-top: 32px;
+        }
+        .demo-hint {
+          font-size: 0.85rem;
+          padding: 8px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-controls">
+      <a href="http://www.pdxstudio.site/" class="nav-home" title="返回主页"
+        >返回主页</a
+      >
+      <div class="control-divider"></div>
+      <button id="theme-toggle" class="theme-toggle" title="切换日间/夜间模式">
+        ☀️
+      </button>
+    </div>
+
+    <header>
+      <div class="container">
+        <span class="hero-badge">Chrome 扩展</span>
+        <h1 class="logo">PopWord 弹词</h1>
+        <p class="tagline">
+          在网页上左键 /
+          右键切换单词，搭配发音、浮动展示与学习记录，边浏览边记单词。
+        </p>
+        <div class="btn-group">
+          <a href="/PopWord_1.0.5.zip" class="cta" target="_self" rel="noopener"
+            >立即下载</a
+          >
+          <a
+            href="https://github.com/FishDuM/PopWord"
+            class="cta gray"
+            target="_blank"
+            rel="noopener"
+            >⭐ 在 GitHub 查看</a
+          >
+        </div>
+        <div>
+          <span class="demo-hint"
+            >
+            提示：无需下载，在当前页面随意点击鼠标左、右键即可在线体验！</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <h2>功能亮点</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">👆</div>
+            <div>
+              <h3>点击即出词</h3>
+              <p>
+                左键下一个、右键上一个，支持自定义键盘快捷键，任意网页都能用。
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔀</div>
+            <div>
+              <h3>随机顺序</h3>
+              <p>词库加载后自动打乱，每次都是新顺序，避免固定顺序记忆。</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔊</div>
+            <div>
+              <h3>发音与词库</h3>
+              <p>
+                自动读词、多词库切换（如 CET4），可自定义音频
+                API，预加载减少卡顿。
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📋</div>
+            <div>
+              <h3>学习记录</h3>
+              <p>
+                自动记录学习历史，监控面板随时查看，支持一键关闭弹词、重置词库与清理缓存。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <div class="container">
+        <h2>安装方法</h2>
+        <ol class="steps">
+          <li>下载压缩包到本地并解压</li>
+          <li>打开 Chrome，进入 <code>chrome://extensions/</code></li>
+          <li>开启右上角「开发者模式」</li>
+          <li>点击「加载已解压的扩展程序」，选择项目目录即可</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="changelog">
+      <div class="container">
+        <h2>更新日志</h2>
+        <div class="changelog-box">
+          <ul class="changelog-list">
+            <li>
+                <div class="version-header">
+                <span class="version-badge red">后续更新由原作者负责</span>
+              </div>
+              <p style="color: white;">
+  • Github  @<a class="author" href="https://github.com/FishDuM" target="_blank" style="color: white; text-decoration: none;">FishDuM</a>
+</p>
+            </li>
+            
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.5</span>
+              </div>
+              <p>
+                • 增加CET6、托福、雅思等更多词库
+              </p>
+            </li>
+
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.4</span>
+              </div>
+              <p>
+                • 美化了插件面板<br />• 修复了读取词库失败的bug<br />•
+                新增官网demo显示
+              </p>
+            </li>
+
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.3</span>
+              </div>
+              <p>
+                • 新增开启/关闭弹词<br />• 支持自定义触发键<br />•
+                修复错误的图标格式
+              </p>
+            </li>
+
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.2</span>
+              </div>
+              <p>
+                • 优化了音频预加载逻辑，切换单词时发音更流畅。<br />•
+                修改了部分错别字和提示文案。
+              </p>
+            </li>
+
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.1</span>
+              </div>
+              <p>• 建立PopWord官网<br />• 为扩展上传ico图标</p>
+            </li>
+
+            <li>
+              <div class="version-header">
+                <span class="version-badge blue">v1.0.0</span>
+              </div>
+              <p>
+                • PopWord 弹词首个版本正式在 GitHub 开源发布！<br />•
+                支持基础的发音、四级词库、随机出词等核心功能。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p style="margin-bottom: 10px">
+          PopWord 弹词 · 基于 Chrome 扩展的英语学习插件 ·  v1.0.4
+        </p>
+        <p>问题反馈及咨询请联系作者</p>
+        <p style="margin-top: 8px">
+          <a href="https://github.com/FishDuM">GitHub</a> · 仅供学习使用
+        </p>
+        <p class="copyright">版权所有 &copy; 派大星 & 会飞的鱼</p>
+      </div>
+    </footer>
+
+    <script src="./popword.js"></script>
+    <script>
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme === "light") {
+        body.classList.add("light-mode");
+        themeToggleBtn.textContent = "🌙";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+
+        if (body.classList.contains("light-mode")) {
+          themeToggleBtn.textContent = "🌙";
+          localStorage.setItem("theme", "light");
+        } else {
+          themeToggleBtn.textContent = "☀️";
+          localStorage.setItem("theme", "dark");
+        }
+      });
+    </script>
+  </body>
+</html>

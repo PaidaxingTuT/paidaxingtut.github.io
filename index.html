@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>派大星工作室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="intro-active">
+    <div class="intro-overlay" id="introOverlay">
+      <div class="intro-logo-wrapper">
+        <img src="img/favicon.ico" alt="Logo" />
+      </div>
+    </div>
+
+    <svg style="position: fixed; width: 0; height: 0; pointer-events: none">
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.65"
+          numOctaves="3"
+          stitchTiles="stitch"
+        />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+    </svg>
+    <div class="grain-overlay"></div>
+
+    <nav id="nav">
+      <a href="#about" class="nav-logo">
+        <img src="img/favicon.ico" alt="网站 Logo" />
+      </a>
+      <div class="nav-links">
+        <a href="#about">关于</a>
+        <a href="#journey">历程</a>
+        <a href="#tech-stack">技术</a>
+        <a href="#projects">项目</a>
+        <a href="#friends">友链</a>
+        <a href="#contact">联系</a>
+      </div>
+    </nav>
+
+    <section id="about" class="hero">
+      <div class="hero-inner">
+        <p class="hero-greeting">你好，我是</p>
+        <h1 class="hero-name">派大星</h1>
+
+        <div class="hero-divider"></div>
+        <p class="hero-intro">
+          <em>Java 后端</em> 开发者 · <em>Python AI</em> 开发者
+        </p>
+        <div class="hero-tags">
+          <span class="hero-tag">动漫</span>
+          <span class="hero-tag">编程</span>
+          <span class="hero-tag">游戏</span>
+        </div>
+
+        <div id="apiContent" class="hero-hitokoto">
+          <p class="hitokoto-text">加载中...</p>
+          <p class="hitokoto-from"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="journey-scroll-room">
+        <div class="journey-viewport">
+          <div class="journey-header">
+            <p class="section-label">编程历程</p>
+            <h2 class="section-heading">我的<em>旅程</em></h2>
+            <p class="journey-hint">向下滚动滚轮</p>
+          </div>
+
+          <div class="journey-track" id="journeyTrack">
+            <div class="track-line"></div>
+            <div class="track-progress" id="trackProgress"></div>
+
+            <div class="rocket-wrapper" id="rocketWrapper">
+              <svg
+                class="rocket-svg"
+                viewBox="-8 0 64 32"
+                width="68"
+                height="32"
+              >
+                <path
+                  class="flame-outer"
+                  d="M6 10 L-6 16 L6 22Z"
+                  fill="#ff9500"
+                />
+                <path
+                  class="flame-inner"
+                  d="M6 12 L-2 16 L6 20Z"
+                  fill="#ffd700"
+                />
+                <rect
+                  x="6"
+                  y="8"
+                  width="32"
+                  height="16"
+                  rx="8"
+                  fill="#d4622b"
+                  stroke="#b34d1d"
+                  stroke-width="0.5"
+                />
+                <path d="M38 8 C42 8 56 16 38 24Z" fill="#b34d1d" />
+                <circle
+                  cx="22"
+                  cy="16"
+                  r="4"
+                  fill="#f7f3eb"
+                  stroke="#b34d1d"
+                  stroke-width="0.5"
+                />
+                <path d="M6 8 L0 0 L14 8Z" fill="#3d7a6e" />
+                <path d="M6 24 L0 32 L14 24Z" fill="#3d7a6e" />
+              </svg>
+            </div>
+
+            <div class="milestone" style="left: calc(16.66% + 22.6px)">
+              <div class="ms-dot"></div>
+              <div class="ms-top"><span class="ms-year">2018</span></div>
+              <div class="ms-bottom">
+                <span class="ms-title">初识编程</span
+                ><span class="ms-desc">第一次接触编程<br />征战区级竞赛</span>
+              </div>
+            </div>
+
+            <div class="milestone" style="left: calc(33.33% + 11.3px)">
+              <div class="ms-dot"></div>
+              <div class="ms-top"><span class="ms-year">2020</span></div>
+              <div class="ms-bottom">
+                <span class="ms-title">深入学习</span
+                ><span class="ms-desc">系统性深入学习<br />筑牢编程基础</span>
+              </div>
+            </div>
+
+            <div class="milestone" style="left: 50%">
+              <div class="ms-dot"></div>
+              <div class="ms-top"><span class="ms-year">2021</span></div>
+              <div class="ms-bottom">
+                <span class="ms-title">独立建站</span
+                ><span class="ms-desc"
+                  >学习搭建网站<br />共享免费接口<br
+                /></span>
+              </div>
+            </div>
+
+            <div class="milestone" style="left: calc(66.66% - 11.3px)">
+              <div class="ms-dot"></div>
+              <div class="ms-top"><span class="ms-year">2025</span></div>
+              <div class="ms-bottom">
+                <span class="ms-title">体系重构</span
+                ><span class="ms-desc">深耕Java生态<br />打通全栈链路</span>
+              </div>
+            </div>
+
+            <div class="milestone" style="left: calc(83.33% - 22.6px)">
+              <div class="ms-dot"></div>
+              <div class="ms-top"><span class="ms-year">至今</span></div>
+              <div class="ms-bottom">
+                <span class="ms-title">智启新程</span
+                ><span class="ms-desc">进阶Python开发<br />布局AI新领域</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech-stack">
+      <div class="tech-inner">
+        <div class="tech-header reveal">
+          <p class="section-label">技术栈</p>
+          <h2 class="section-heading">技术<em>储备</em></h2>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card reveal reveal-d1">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+              alt="HTML5"
+            />
+            <span>HTML</span>
+          </div>
+          <div class="tech-card reveal reveal-d2">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+              alt="CSS3"
+            />
+            <span>CSS</span>
+          </div>
+          <div class="tech-card reveal reveal-d3">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+              alt="JavaScript"
+            />
+            <span>JavaScript</span>
+          </div>
+          <div class="tech-card reveal reveal-d4">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
+              alt="Vue"
+            />
+            <span>Vue</span>
+          </div>
+
+          <div class="tech-card reveal reveal-d2">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+              alt="Java"
+            />
+            <span>Java</span>
+          </div>
+          <div class="tech-card reveal reveal-d3">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+              alt="Spring Boot"
+            />
+            <span>Spring Boot</span>
+          </div>
+          <div class="tech-card reveal reveal-d4">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+              alt="MySQL"
+            />
+            <span>MySQL</span>
+          </div>
+          <div class="tech-card reveal reveal-d5">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+              alt="Python"
+            />
+            <span>Python</span>
+          </div>
+
+          <div class="tech-card reveal reveal-d2">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
+              alt="Linux"
+            />
+            <span>Linux</span>
+          </div>
+          <div class="tech-card reveal reveal-d3">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+              alt="Git"
+            />
+            <span>Git</span>
+          </div>
+          <div class="tech-card reveal reveal-d4">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+              alt="Docker"
+            />
+            <span>Docker</span>
+          </div>
+          <div class="tech-card reveal reveal-d5">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg"
+              alt="Android"
+            />
+            <span>Android</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="projects-inner">
+        <div class="projects-header reveal">
+          <p class="section-label">我的项目</p>
+          <h2 class="section-heading">作品<em>展示</em></h2>
+        </div>
+        <div class="projects-grid">
+          <a
+            href="https://github.com/PaidaxingTuT/Ciallo_Printer"
+            class="project-card reveal reveal-d1"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="project-icon">1</div>
+            <span class="project-name">Ciallo Printer</span>
+            <span class="project-desc">像素绘画创作工具</span>
+          </a>
+          <a
+            href="http://www.pdxstudio.site/popword"
+            class="project-card reveal reveal-d2"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="project-icon">2</div>
+            <span class="project-name">PopWord</span>
+            <span class="project-desc">浏览器插件英语学习助手<br /> </span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="project-card reveal reveal-d3"
+            onclick="development()"
+          >
+            <div class="project-icon">3</div>
+            <span class="project-name">DAX-AI</span>
+            <span class="project-desc"
+              >个人 AI 助手计划<br />
+              「开发中」</span
+            >
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="project-card reveal reveal-d2"
+            onclick="development()"
+          >
+            <div class="project-icon">4</div>
+            <span class="project-name">DAX-BLOG</span>
+            <span class="project-desc"
+              >派大星博客<br />
+              「开发中」</span
+            >
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="project-card reveal reveal-d3"
+            onclick="tobedecided()"
+          >
+            <div class="project-icon">5</div>
+            <span class="project-name">TBD</span>
+            <span class="project-desc">TBD</span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="project-card reveal reveal-d4"
+            onclick="tobedecided()"
+          >
+            <div class="project-icon">6</div>
+            <span class="project-name">TBD</span>
+            <span class="project-desc">TBD</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="friends">
+      <div class="friends-inner">
+        <div class="friends-header reveal">
+          <p class="section-label">友情链接</p>
+          <h2 class="section-heading">我的<em>伙伴</em></h2>
+        </div>
+        <div class="friends-grid">
+          <a
+            href="https://fishdum.github.io"
+            class="friend-card reveal reveal-d1"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="friend-avatar">
+              <img
+                src="https://fishdum.github.io/images/logo_white.png"
+                class="fish"
+                alt="会飞的鱼"
+              />
+            </div>
+            <span class="friend-name">会飞的鱼</span>
+            <span class="friend-desc">Java后端开发见习生</span>
+          </a>
+          <a
+            href="https://www.snkj.xyz"
+            class="friend-card reveal reveal-d2"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="friend-avatar">
+              <img src="https://www.snkj.xyz/favicon.ico" alt="少年科技" />
+            </div>
+            <span class="friend-name">少年科技</span>
+            <span class="friend-desc">彼方尚有荣光在.</span>
+          </a>
+          <a
+            href="http://amadeuscristina.site"
+            class="friend-card reveal reveal-d3"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="friend-avatar">
+              <img src="img/amadeus.png" alt="amadeus" />
+            </div>
+            <span class="friend-name">Amadeus</span>
+            <span class="friend-desc">Amadeus个人网站</span>
+          </a>
+          <a
+            href="http://www.gaoguang.xin/"
+            class="friend-card reveal reveal-d4"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="friend-avatar">
+              <img src="img/huama.png" alt="花马我靠" />
+            </div>
+            <span class="friend-name">花马我靠</span>
+            <span class="friend-desc">摆烂玩家</span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="friend-card reveal reveal-d2"
+            onclick="tobedecided()"
+          >
+            <div class="friend-avatar">T</div>
+            <span class="friend-name">TBD</span>
+            <span class="friend-desc">TBD</span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="friend-card reveal reveal-d3"
+            onclick="tobedecided()"
+          >
+            <div class="friend-avatar">T</div>
+            <span class="friend-name">TBD</span>
+            <span class="friend-desc">TBD</span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="friend-card reveal reveal-d4"
+            onclick="tobedecided()"
+          >
+            <div class="friend-avatar">T</div>
+            <span class="friend-name">TBD</span>
+            <span class="friend-desc">TBD</span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            class="friend-card reveal reveal-d5"
+            onclick="tobedecided()"
+          >
+            <div class="friend-avatar">T</div>
+            <span class="friend-name">TBD</span>
+            <span class="friend-desc">TBD</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-inner">
+        <div class="contact-header reveal">
+          <p class="section-label">联系方式</p>
+          <h2 class="section-heading">找到<em>我</em></h2>
+        </div>
+        <div class="contact-list">
+          <a
+            href="javascript:void(0);"
+            class="contact-row reveal reveal-d1"
+            onclick="copyQQ()"
+            target="_self"
+          >
+            <div class="contact-icon">
+              <i class="fa-brands fa-qq"></i>
+            </div>
+            <div class="contact-label">
+              <span class="contact-label-name">QQ</span>
+              <span class="contact-label-value">428488368</span>
+            </div>
+          </a>
+
+          <a
+            href="https://space.bilibili.com/317050115"
+            class="contact-row reveal reveal-d2"
+            target="_blank"
+          >
+            <div class="contact-icon">
+              <i class="fa-brands fa-bilibili"></i>
+            </div>
+            <div class="contact-label">
+              <span class="contact-label-name">哔哩哔哩</span>
+              <span class="contact-label-value">派大星_TuT</span>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/PaidaxingTuT"
+            class="contact-row reveal reveal-d3"
+            target="_blank"
+          >
+            <div class="contact-icon">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="contact-label">
+              <span class="contact-label-name">Github</span>
+              <span class="contact-label-value">PaidaxingTuT</span>
+            </div>
+          </a>
+
+          <a
+            href="mailto:paidaxing_tut@outlook.com"
+            class="contact-row reveal reveal-d4"
+            target="_self"
+          >
+            <div class="contact-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contact-label">
+              <span class="contact-label-name">Email</span>
+              <span class="contact-label-value">paidaxing_tut@outlook.com</span>
+            </div>
+          </a>
+
+          <a
+            href="https://qm.qq.com/cgi-bin/qm/qr?k=IsRlx2v8D6K43iCryyy5kfRGckQSkepa&amp;jump_from=webapi&amp;authKey=Nk4t+qYsYUnrUhIaykPtS7O78KR5/f5LKj0DeL+bWIrqY+LOzQD4tIQ+PHJBMxXa"
+            class="contact-row reveal reveal-d5"
+            target="_blank"
+          >
+            <div class="contact-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="contact-label">
+              <span class="contact-label-name">交流群</span>
+              <span class="contact-label-value">加入交流群</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <p class="footer-text">&copy; 2026 派大星</p>
+
+        <div class="footer-runtime">
+          <span id="runtime_span"></span>
+        </div>
+
+        <div class="footer-links">
+          <a href="check">课程进度查询</a>
+          <a href="pay">赞助我们</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>
+<!--
+展示胎记
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣼⣇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣾⠏⢿⣧⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢠⣾⠟⠄⠈⢻⣦⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⠄⠄⠄⠄⢠⣾⠛⠄⢀⡀⠄⠻⣷⡀⠄⠄⠄⢀⣀⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⣀⣴⣾⠟⠻⢷⣶⠄⢰⣾⠏⢀⣶⠿⢷⣶⣄⡉⠳⠄⠰⡾⠿⠛⠿⣷⣤⣀⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⢸⣿⠁⠄⣤⡤⠄⠄⠄⢻⣷⣤⡈⠄⠄⠄⠈⠛⠿⣷⣤⡀⠄⠄⣦⣄⠄⢹⣿⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⢸⣿⠄⢸⡇⠄⣤⣤⣤⣤⣄⡉⠻⢿⣦⣄⡙⠟⠄⠈⠉⠻⣿⣶⠄⢸⡇⢸⣿⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠘⢿⣤⠄⠃⠄⣿⠉⠉⠉⢉⣉⣀⣀⣉⣛⣿⣶⣤⠄⢠⡆⣿⡿⠄⢈⣤⣾⠿⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠛⣦⠄⠄⣿⠄⠄⠄⢸⣿⣟⠛⠛⠛⢛⣿⡿⠄⠜⠃⣀⣤⡾⠟⠋⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⡀⠄⣿⠄⢰⡆⢸⣿⢿⣦⠄⢀⣼⠟⠄⣠⣴⡾⠟⢉⠄⡆⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⣴⡇⠄⣿⠄⠄⠁⢸⣿⠄⢻⣧⣼⣿⣾⠿⠛⠁⠄⣾⣿⠄⣿⣆⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⢀⣾⡿⠁⠄⢿⣦⣀⠄⢸⣿⠄⠄⠹⠟⠋⠄⣶⠇⢀⣀⣿⡿⠄⠈⢿⣆⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⢀⣼⠟⠄⠄⠄⠈⠉⠛⠇⢸⣿⠄⠄⠄⠄⠄⢀⣤⣶⡾⠛⠉⠄⠄⠄⠈⢿⣦⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠠⠾⠿⠿⠿⠿⠿⠿⠿⠶⠄⢸⣿⠄⣶⣤⣤⡾⠿⠛⠁⠤⠾⠿⠿⠿⠿⠿⠿⠿⠧⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⠄⠈⠙⠉⢁⡀⠄⣶⡆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⠄⠛⢦⡾⠛⠁⣴⡟⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⠿⣶⣦⣀⣀⣴⡾⠿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠙⠻⠛⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+
+-->

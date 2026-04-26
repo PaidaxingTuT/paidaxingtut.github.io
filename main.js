@@ -350,6 +350,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeBtn = document.querySelector(".modal-close");
   const overlay = document.querySelector(".modal-overlay");
   const logBody = document.getElementById("logBody");
+  const stripModalLinks = () => {
+    logBody.querySelectorAll("a").forEach((link) => {
+      const href = link.getAttribute("href");
+      const text = link.textContent ? link.textContent.trim() : "";
+      const replacement = document.createElement("span");
+
+      replacement.textContent =
+        href && text && href !== text ? text + " (" + href + ")" : text || href || "";
+
+      link.replaceWith(replacement);
+    });
+  };
+
+  if (!trigger || !modal || !closeBtn || !overlay || !logBody) return;
 
   trigger.addEventListener("click", function (e) {
     e.preventDefault();
@@ -369,6 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           logBody.innerText = data;
         }
+        stripModalLinks();
       })
       .catch((err) => {
         logBody.innerHTML = "<p>读取失败</p>";

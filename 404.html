@@ -1,14 +1,90 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
-</head>
-<body>
-<h1>404 Not Found</h1>
-<h2>Please contact the admin QQ428488368</h2>
-</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - 页面未找到 | Paidaxing Studio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&family=Noto+Serif+SC:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg);
+        color: var(--text-main);
+      }
+      .error-wrapper {
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: errorFadeIn 0.8s ease 0.2s forwards;
+      }
+      .error-code {
+        font-family: "EB Garamond", serif;
+        font-size: 10rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin: 0;
+        line-height: 1;
+        letter-spacing: -4px;
+        user-select: none;
+      }
+      .error-title {
+        font-family: "Noto Serif SC", serif;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 16px 0;
+        letter-spacing: 2px;
+      }
+      .error-desc {
+        font-family: "Noto Serif SC", serif;
+        color: var(--text-faint);
+        font-size: 1rem;
+        line-height: 1.8;
+        max-width: 400px;
+        margin: 0 auto 40px auto;
+      }
+      .btn-return {
+        display: inline-block;
+        padding: 10px 28px;
+        font-family: "Noto Serif SC", serif;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .btn-return:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      @keyframes errorFadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-wrapper">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">页面未找到</h2>
+      <p class="error-desc">
+        抱歉，你访问的页面不存在或已被移除。<br />请检查输入的地址是否正确。
+      </p>
+      <a href="/" class="btn-return">返回首页</a>
+    </div>
+  </body>
 </html>

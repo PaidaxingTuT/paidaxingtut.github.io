@@ -289,8 +289,8 @@ body.intro-active .site-counter {
   color: #afa596;
 }
 
-#logTrigger:hover {
-  color: #8a7d6a;
+.footer-text span {
+  cursor: default;
 }
 
 .footer-runtime {

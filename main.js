@@ -369,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           logBody.innerText = data;
         }
+
       })
       .catch((err) => {
         logBody.innerHTML = "<p>读取失败</p>";

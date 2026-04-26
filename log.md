@@ -8,7 +8,7 @@
 - 2026.04.26 新增访问人次功能
 - 2026.04.26 新增网站日志弹窗
 
-<small>点击[此处](https://github.com/PaidaxingTuT/paidaxingtut.github.io/deployments)查看详细变更记录</small>
+<small>点击[此处](https://github.com/PaidaxingTuT/paidaxingtut.github.io/commits)查看详细变更记录</small>
 
 ## 本站托管仓库
 

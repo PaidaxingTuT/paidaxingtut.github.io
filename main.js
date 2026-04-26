@@ -112,6 +112,9 @@ function goToSection(index) {
 window.addEventListener(
   "wheel",
   (e) => {
+    const modal = document.getElementById("logModal");
+    if (modal && modal.classList.contains("active")) return;
+
     if (isScrolling) {
       e.preventDefault();
       return;
@@ -351,25 +354,31 @@ document.addEventListener("DOMContentLoaded", function () {
   trigger.addEventListener("click", function (e) {
     e.preventDefault();
     modal.classList.add("active");
-    document.body.style.overflow = "hidden";
+
+    document.body.classList.add("no-scroll");
+    document.documentElement.classList.add("no-scroll");
 
     fetch("log.md")
       .then((response) => {
-        if (!response.ok) throw new Error("无法读取日志文件");
+        if (!response.ok) throw new Error("File not found");
         return response.text();
       })
       .then((data) => {
-        logBody.innerText = data;
+        if (typeof marked !== "undefined") {
+          logBody.innerHTML = marked.parse(data);
+        } else {
+          logBody.innerText = data;
+        }
       })
       .catch((err) => {
-        logBody.innerText = "读取失败：请确保仓库根目录下存在 log.md";
-        console.error(err);
+        logBody.innerHTML = "<p>读取失败</p>";
       });
   });
 
   const closeModal = () => {
     modal.classList.remove("active");
-    document.body.style.overflow = "";
+    document.body.classList.remove("no-scroll");
+    document.documentElement.classList.remove("no-scroll");
   };
 
   closeBtn.addEventListener("click", closeModal);

@@ -289,6 +289,10 @@ body.intro-active .site-counter {
   color: #afa596;
 }
 
+#logTrigger:hover {
+  color: #8a7d6a;
+}
+
 .footer-runtime {
   flex: 2;
   text-align: center;
@@ -981,6 +985,11 @@ footer.scrolled {
   justify-content: center;
 }
 
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -998,24 +1007,22 @@ footer.scrolled {
 .modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(45, 41, 38, 0.2);
-  backdrop-filter: blur(8px);
-  animation: fadeIn 0.3s ease;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .modal-content {
   position: relative;
+  z-index: 10;
   width: 100%;
   max-width: 600px;
-  max-height: 80vh;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-  transform: translateY(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.4s ease forwards;
+  overflow: hidden;
+  display: block;
 }
 
 .modal-header {
@@ -1024,11 +1031,12 @@ footer.scrolled {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: var(--card);
 }
 
 .modal-title {
   font-family: "EB Garamond", serif;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--accent);
 }
@@ -1037,30 +1045,119 @@ footer.scrolled {
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--text-faint);
-  transition: color 0.3s;
-}
-
-.modal-close:hover {
-  color: var(--accent);
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 30px 40px;
+  max-height: calc(80vh - 70px);
   overflow-y: auto;
-  font-family: "Noto Serif SC", serif;
-  font-size: 0.95rem;
-  line-height: 1.8;
+  overscroll-behavior: contain;
   color: var(--text);
-  white-space: pre-wrap;
+  font-family: "Noto Serif SC", serif;
+  line-height: 1.8;
 }
 
-/* 简单的淡入动画 */
-@keyframes fadeIn {
+.modal-body h1 {
+  font-family: "EB Garamond", serif;
+  font-size: 1.6rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.modal-body hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 24px 0;
+}
+
+.modal-body h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+.modal-body h2::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  margin-right: 12px;
+  border-radius: 2px;
+}
+
+.modal-body h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 20px 0 12px;
+  color: var(--text-soft);
+}
+
+.modal-body p {
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.modal-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.modal-body ul {
+  list-style: none;
+  padding-left: 4px;
+  margin-bottom: 24px;
+}
+
+.modal-body li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  display: flex;
+  align-items: flex-start;
+}
+
+.modal-body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 8px;
+  height: 1px;
+  background: var(--text-faint);
+}
+
+.modal-body li:hover::before {
+  background: var(--accent);
+}
+
+.modal-body a {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent-light);
+  transition: all 0.3s;
+}
+
+.modal-body a:hover {
+  border-bottom-color: var(--accent);
+  background: var(--accent-light);
+}
+
+@keyframes slideUp {
   from {
     opacity: 0;
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -1103,11 +1200,14 @@ footer.scrolled {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
+  background: var(--text-faint);
   border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-soft);
 }
 
 @media (max-width: 1024px) {

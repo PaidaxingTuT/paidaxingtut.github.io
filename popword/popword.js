@@ -63,7 +63,6 @@
     element.className = 'popword-demo-effect';
     element.textContent = text; 
     
-    // 删除了 opacity 和 transition 属性，去掉了所有特效
     element.style.cssText = `
       position: fixed;
       left: ${x}px;

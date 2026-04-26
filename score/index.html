@@ -181,7 +181,6 @@
             const data = await response.json();
 
             if (data.status === 'error') {
-                // 如果是 Cookie 过期，清除本地存储，防止死循环
                 if(data.msg.includes('过期') || data.msg.includes('异常')) {
                     localStorage.removeItem('lcu_jw_cookie');
                 }

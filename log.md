@@ -6,7 +6,7 @@
 
 - 2026.04.25 站点正式上线
 - 2026.04.26 新增访问人次功能
-- 2026.04.26 新增开发日志功能
+- 2026.04.26 新增网站日志弹窗
 
 <small>点击[此处](https://github.com/PaidaxingTuT/paidaxingtut.github.io/deployments)查看详细变更记录</small>
 

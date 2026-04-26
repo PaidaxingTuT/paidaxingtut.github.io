@@ -21,7 +21,6 @@
   });
 
   setTimeout(function () {
-
     logoWrapper.style.transition = "none";
     void logoWrapper.offsetHeight;
 
@@ -340,6 +339,41 @@ function tobedecided() {
 
 document.addEventListener("contextmenu", function (e) {
   e.preventDefault();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const trigger = document.getElementById("logTrigger");
+  const modal = document.getElementById("logModal");
+  const closeBtn = document.querySelector(".modal-close");
+  const overlay = document.querySelector(".modal-overlay");
+  const logBody = document.getElementById("logBody");
+
+  trigger.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    fetch("log.md")
+      .then((response) => {
+        if (!response.ok) throw new Error("无法读取日志文件");
+        return response.text();
+      })
+      .then((data) => {
+        logBody.innerText = data;
+      })
+      .catch((err) => {
+        logBody.innerText = "读取失败：请确保仓库根目录下存在 log.md";
+        console.error(err);
+      });
+  });
+
+  const closeModal = () => {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
 });
 
 window.onload = () => {

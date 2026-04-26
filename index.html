@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>派大星工作室  - Paidaxing Studio</title>
+    <title>派大星工作室 - Paidaxing Studio</title>
 
-    <meta name="description" content="派大星工作室 (Paidaxing Studio) 是由全栈开发者派大星建立的个人网站。专注于 Java 后端开发、Python AI 大模型探索以及现代前端技术。在这里分享编程历程、开源项目与技术文章。" />
-    <meta name="keywords" content="派大星工作室,Paidaxing Studio,派大星,Java开发,Spring Boot,Python开发,AI模型,个人博客,全栈开发" />
+    <meta
+      name="description"
+      content="派大星工作室 (Paidaxing Studio) 是由全栈开发者派大星建立的个人网站。专注于 Java 后端开发、Python AI 大模型探索以及现代前端技术。在这里分享编程历程、开源项目与技术文章。"
+    />
+    <meta
+      name="keywords"
+      content="派大星工作室,Paidaxing Studio,派大星,Java开发,Spring Boot,Python开发,AI模型,个人博客,全栈开发"
+    />
     <meta property="og:title" content="派大星工作室 | 全栈开发与 AI 探索者" />
-    <meta property="og:description" content="专注于 Java 后端开发与 Python AI 探索的个人技术主页。" />
+    <meta
+      property="og:description"
+      content="专注于 Java 后端开发与 Python AI 探索的个人技术主页。"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.pdxstudio.site/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -87,7 +96,6 @@
             次访问的
           </span>
         </div>
-        
       </div>
     </section>
 
@@ -104,7 +112,7 @@
             <div class="track-line"></div>
             <div class="track-progress" id="trackProgress"></div>
 
-             <div class="rocket-wrapper" id="rocketWrapper">
+            <div class="rocket-wrapper" id="rocketWrapper">
               <svg
                 class="rocket-svg"
                 viewBox="-8 0 64 32"
@@ -519,7 +527,22 @@
 
     <footer>
       <div class="footer-inner">
-        <p class="footer-text">&copy; 2026 派大星</p>
+        <div class="footer-text">
+          <a href="javascript:void(0)" id="logTrigger" style="cursor: default">
+            &copy; 2026 派大星
+          </a>
+        </div>
+
+        <div id="logModal" class="modal">
+          <div class="modal-overlay"></div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title">Development Log</span>
+              <span class="modal-close">&times;</span>
+            </div>
+            <div id="logBody" class="modal-body">正在读取日志...</div>
+          </div>
+        </div>
 
         <div class="footer-runtime">
           <span id="runtime_span"></span>
@@ -532,7 +555,10 @@
       </div>
     </footer>
 
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script
+      async
+      src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    ></script>
     <script src="main.js"></script>
   </body>
 </html>

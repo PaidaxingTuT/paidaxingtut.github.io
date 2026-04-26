@@ -1,562 +1,266 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>派大星工作室  - Paidaxing Studio</title>
-
-    <meta name="description" content="派大星工作室 (Paidaxing Studio) 是由全栈开发者派大星建立的个人网站。专注于 Java 后端开发、Python AI 大模型探索以及现代前端技术。在这里分享编程历程、开源项目与技术文章。" />
-    <meta name="keywords" content="派大星工作室,Paidaxing Studio,派大星,Java开发,Spring Boot,Python开发,AI模型,个人博客,全栈开发" />
-    <meta property="og:title" content="派大星工作室 | 全栈开发与 AI 探索者" />
-    <meta property="og:description" content="专注于 Java 后端开发与 Python AI 探索的个人技术主页。" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.pdxstudio.site/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>派大星工作室-赞助支持中心</title>
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+    <meta
+      name="description"
+      content="一个人的坚持因为有你们才更有力量，感谢每一位支持者！"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // 完全复用 check 页面的 Tailwind 配置
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b82f6",
+              secondary: "#06b6d4",
+              dark: {
+                50: "#f8fafc",
+                100: "#f1f5f9",
+                200: "#e2e8f0",
+                300: "#cbd5e1",
+                400: "#94a3b8",
+                500: "#64748b",
+                600: "#475569",
+                700: "#334155",
+                800: "#1e293b",
+                900: "#0f172a",
+                950: "#020617",
+              },
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+            boxShadow: {
+              card: "0 10px 30px -5px rgba(0, 0, 0, 0.1)",
+              hover: "0 20px 40px -5px rgba(0, 0, 0, 0.15)",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .bg-gradient-dark {
+          background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .bg-gradient-light {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        .transition-custom {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      }
+    </style>
     <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <meta name="baidu-site-verification" content="codeva-S6pjaGs4Fd" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="intro-active">
-    <div class="intro-overlay" id="introOverlay">
-      <div class="intro-logo-wrapper">
-        <img src="img/favicon.ico" alt="Logo" />
-      </div>
-    </div>
-
-    <svg style="position: fixed; width: 0; height: 0; pointer-events: none">
-      <filter id="noiseFilter">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.65"
-          numOctaves="3"
-          stitchTiles="stitch"
-        />
-        <feColorMatrix type="saturate" values="0" />
-      </filter>
-    </svg>
-    <div class="grain-overlay"></div>
-
-    <nav id="nav">
-      <a href="#about" class="nav-logo">
-        <img src="img/favicon.ico" alt="网站 Logo" />
-      </a>
-      <div class="nav-links">
-        <a href="#about">关于</a>
-        <a href="#journey">历程</a>
-        <a href="#tech-stack">技术</a>
-        <a href="#projects">项目</a>
-        <a href="#friends">友链</a>
-        <a href="#contact">联系</a>
-      </div>
-    </nav>
-
-    <section id="about" class="hero">
-      <div class="hero-inner">
-        <p class="hero-greeting">你好，我是</p>
-        <h1 class="hero-name">派大星</h1>
-
-        <div class="hero-divider"></div>
-        <p class="hero-intro">
-          <em>Java 后端</em> 开发者 · <em>Python AI</em> 开发者
-        </p>
-        <div class="hero-tags">
-          <span class="hero-tag">动漫</span>
-          <span class="hero-tag">编程</span>
-          <span class="hero-tag">游戏</span>
-        </div>
-
-        <div id="apiContent" class="hero-hitokoto">
-          <p class="hitokoto-text">加载中...</p>
-          <p class="hitokoto-from"></p>
-        </div>
-
-        <div class="site-counter">
-          <span id="busuanzi_container_site_pv" style="display: none">
-            你是第
-            <span id="busuanzi_value_site_pv" class="counter-num"></span>
-            次访问的
-          </span>
-        </div>
-        
-      </div>
-    </section>
-
-    <section id="journey">
-      <div class="journey-scroll-room">
-        <div class="journey-viewport">
-          <div class="journey-header">
-            <p class="section-label">编程历程</p>
-            <h2 class="section-heading">我的<em>旅程</em></h2>
-            <p class="journey-hint">向下滚动滚轮</p>
-          </div>
-
-          <div class="journey-track" id="journeyTrack">
-            <div class="track-line"></div>
-            <div class="track-progress" id="trackProgress"></div>
-
-             <div class="rocket-wrapper" id="rocketWrapper">
-              <svg
-                class="rocket-svg"
-                viewBox="-8 0 64 32"
-                width="68"
-                height="32"
-              >
-                <use href="img/icons.svg#icon-rocket"></use>
-              </svg>
-            </div>
-
-            <div class="milestone" style="left: calc(16.66% + 22.6px)">
-              <div class="ms-dot"></div>
-              <div class="ms-top"><span class="ms-year">2018</span></div>
-              <div class="ms-bottom">
-                <span class="ms-title">初识编程</span
-                ><span class="ms-desc">第一次接触编程<br />征战区级竞赛</span>
-              </div>
-            </div>
-
-            <div class="milestone" style="left: calc(33.33% + 11.3px)">
-              <div class="ms-dot"></div>
-              <div class="ms-top"><span class="ms-year">2020</span></div>
-              <div class="ms-bottom">
-                <span class="ms-title">深入学习</span
-                ><span class="ms-desc">系统性深入学习<br />筑牢编程基础</span>
-              </div>
-            </div>
-
-            <div class="milestone" style="left: 50%">
-              <div class="ms-dot"></div>
-              <div class="ms-top"><span class="ms-year">2021</span></div>
-              <div class="ms-bottom">
-                <span class="ms-title">独立建站</span
-                ><span class="ms-desc"
-                  >学习搭建网站<br />共享免费接口<br
-                /></span>
-              </div>
-            </div>
-
-            <div class="milestone" style="left: calc(66.66% - 11.3px)">
-              <div class="ms-dot"></div>
-              <div class="ms-top"><span class="ms-year">2025</span></div>
-              <div class="ms-bottom">
-                <span class="ms-title">体系重构</span
-                ><span class="ms-desc">深耕Java生态<br />打通全栈链路</span>
-              </div>
-            </div>
-
-            <div class="milestone" style="left: calc(83.33% - 22.6px)">
-              <div class="ms-dot"></div>
-              <div class="ms-top"><span class="ms-year">至今</span></div>
-              <div class="ms-bottom">
-                <span class="ms-title">智启新程</span
-                ><span class="ms-desc">进阶Python开发<br />布局AI新领域</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="tech-stack">
-      <div class="tech-inner">
-        <div class="tech-header reveal">
-          <p class="section-label">技术栈</p>
-          <h2 class="section-heading">技术<em>储备</em></h2>
-        </div>
-
-        <div class="tech-grid">
-          <div class="tech-card reveal reveal-d1">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-              alt="HTML5"
-            />
-            <span>HTML</span>
-          </div>
-          <div class="tech-card reveal reveal-d2">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-              alt="CSS3"
-            />
-            <span>CSS</span>
-          </div>
-          <div class="tech-card reveal reveal-d3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-              alt="JavaScript"
-            />
-            <span>JavaScript</span>
-          </div>
-          <div class="tech-card reveal reveal-d4">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
-              alt="Vue"
-            />
-            <span>Vue</span>
-          </div>
-
-          <div class="tech-card reveal reveal-d2">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-              alt="Java"
-            />
-            <span>Java</span>
-          </div>
-          <div class="tech-card reveal reveal-d3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
-              alt="Spring Boot"
-            />
-            <span>Spring Boot</span>
-          </div>
-          <div class="tech-card reveal reveal-d4">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-              alt="MySQL"
-            />
-            <span>MySQL</span>
-          </div>
-          <div class="tech-card reveal reveal-d5">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-              alt="Python"
-            />
-            <span>Python</span>
-          </div>
-
-          <div class="tech-card reveal reveal-d2">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
-              alt="Linux"
-            />
-            <span>Linux</span>
-          </div>
-          <div class="tech-card reveal reveal-d3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-              alt="Git"
-            />
-            <span>Git</span>
-          </div>
-          <div class="tech-card reveal reveal-d4">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
-              alt="Docker"
-            />
-            <span>Docker</span>
-          </div>
-          <div class="tech-card reveal reveal-d5">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg"
-              alt="Android"
-            />
-            <span>Android</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="projects-inner">
-        <div class="projects-header reveal">
-          <p class="section-label">我的项目</p>
-          <h2 class="section-heading">作品<em>展示</em></h2>
-        </div>
-        <div class="projects-grid">
-          <a
-            href="https://github.com/PaidaxingTuT/Ciallo_Printer"
-            class="project-card reveal reveal-d1"
-            target="_blank"
-            rel="noreferrer"
+  <body
+    class="font-inter bg-gray-50 dark:bg-dark-900 min-h-screen flex flex-col text-gray-800 dark:text-gray-200 transition-custom overflow-x-hidden"
+  >
+    <header
+      class="bg-white dark:bg-dark-800 shadow-sm sticky top-0 z-50 transition-custom border-b border-gray-200 dark:border-dark-700"
+    >
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-2">
+          <h1
+            class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white transition-custom"
           >
-            <div class="project-icon">1</div>
-            <span class="project-name">Ciallo Printer</span>
-            <span class="project-desc">像素绘画创作工具</span>
-          </a>
-          <a
-            href="http://www.pdxstudio.site/popword"
-            class="project-card reveal reveal-d2"
-            target="_blank"
-            rel="noreferrer"
+            赞助支持中心
+          </h1>
+        </div>
+
+        <button
+          id="themeToggle"
+          class="p-2 rounded-lg bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600 transition-custom focus:outline-none shadow-sm"
+          title="切换模式"
+        >
+          ☀️
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+      <section class="max-w-5xl mx-auto mb-12">
+        <div class="text-center mb-10">
+          <h2
+            class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-gray-900 dark:text-white mb-2 transition-custom"
           >
-            <div class="project-icon">2</div>
-            <span class="project-name">PopWord</span>
-            <span class="project-desc">浏览器插件英语学习助手<br /> </span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="project-card reveal reveal-d3"
-            onclick="development()"
+            赞助与支持
+          </h2>
+          <p class="text-gray-500 dark:text-gray-400 transition-custom">
+            感谢您让我的网站活下去！
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div
+            class="bg-white dark:bg-dark-800 rounded-2xl shadow-card p-6 md:p-8 transition-custom hover:shadow-hover border border-gray-200 dark:border-dark-700 flex flex-col items-center text-center group"
           >
-            <div class="project-icon">3</div>
-            <span class="project-name">DAX-AI</span>
-            <span class="project-desc"
-              >个人 AI 助手计划<br />
-              「开发中」</span
+            <h2
+              class="text-xl font-bold text-gray-900 dark:text-white mb-2 transition-custom"
             >
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="project-card reveal reveal-d2"
-            onclick="development()"
-          >
-            <div class="project-icon">4</div>
-            <span class="project-name">DAX-BLOG</span>
-            <span class="project-desc"
-              >派大星博客<br />
-              「开发中」</span
+              QQ 支付
+            </h2>
+            <div
+              class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2"
             >
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="project-card reveal reveal-d3"
-            onclick="tobedecided()"
-          >
-            <div class="project-icon">5</div>
-            <span class="project-name">TBD</span>
-            <span class="project-desc">TBD</span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="project-card reveal reveal-d4"
-            onclick="tobedecided()"
-          >
-            <div class="project-icon">6</div>
-            <span class="project-name">TBD</span>
-            <span class="project-desc">TBD</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="friends">
-      <div class="friends-inner">
-        <div class="friends-header reveal">
-          <p class="section-label">友情链接</p>
-          <h2 class="section-heading">我的<em>伙伴</em></h2>
-        </div>
-        <div class="friends-grid">
-          <a
-            href="https://fishdum.github.io"
-            class="friend-card reveal reveal-d1"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div class="friend-avatar">
+              感谢
+            </div>
+            <p
+              class="text-gray-500 dark:text-gray-400 text-sm mb-6 transition-custom"
+            >
+              感谢您的赞助<br />——派大星
+            </p>
+            <div
+              class="w-48 h-48 rounded-2xl overflow-hidden border-4 border-gray-100 dark:border-dark-700 group-hover:border-primary/50 transition-custom mb-4 bg-white p-2"
+            >
               <img
-                src="https://fishdum.github.io/images/logo_white.png"
-                class="fish"
-                alt="会飞的鱼"
+                src="img/qq.png"
+                alt="QQ支付"
+                class="w-full h-full object-contain"
               />
             </div>
-            <span class="friend-name">会飞的鱼</span>
-            <span class="friend-desc">Java后端开发见习生</span>
-          </a>
-          <a
-            href="https://www.snkj.xyz"
-            class="friend-card reveal reveal-d2"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div class="friend-avatar">
-              <img src="https://www.snkj.xyz/favicon.ico" alt="少年科技" />
-            </div>
-            <span class="friend-name">少年科技</span>
-            <span class="friend-desc">彼方尚有荣光在.</span>
-          </a>
-          <a
-            href="http://amadeuscristina.site"
-            class="friend-card reveal reveal-d3"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div class="friend-avatar">
-              <img src="img/amadeus.png" alt="amadeus" />
-            </div>
-            <span class="friend-name">Amadeus</span>
-            <span class="friend-desc">Amadeus个人网站</span>
-          </a>
-          <a
-            href="http://www.gaoguang.xin/"
-            class="friend-card reveal reveal-d4"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div class="friend-avatar">
-              <img src="img/huama.png" alt="花马我靠" />
-            </div>
-            <span class="friend-name">花马我靠</span>
-            <span class="friend-desc">摆烂玩家</span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="friend-card reveal reveal-d2"
-            onclick="tobedecided()"
-          >
-            <div class="friend-avatar">T</div>
-            <span class="friend-name">TBD</span>
-            <span class="friend-desc">TBD</span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="friend-card reveal reveal-d3"
-            onclick="tobedecided()"
-          >
-            <div class="friend-avatar">T</div>
-            <span class="friend-name">TBD</span>
-            <span class="friend-desc">TBD</span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="friend-card reveal reveal-d4"
-            onclick="tobedecided()"
-          >
-            <div class="friend-avatar">T</div>
-            <span class="friend-name">TBD</span>
-            <span class="friend-desc">TBD</span>
-          </a>
-          <a
-            href="javascript:void(0);"
-            class="friend-card reveal reveal-d5"
-            onclick="tobedecided()"
-          >
-            <div class="friend-avatar">T</div>
-            <span class="friend-name">TBD</span>
-            <span class="friend-desc">TBD</span>
-          </a>
-        </div>
-      </div>
-    </section>
+            <p
+              class="text-xs text-gray-400 dark:text-gray-500 mt-auto transition-custom"
+            >
+              QQ扫一扫 • 感谢你的一份心意
+            </p>
+          </div>
 
-    <section id="contact">
-      <div class="contact-inner">
-        <div class="contact-header reveal">
-          <p class="section-label">联系方式</p>
-          <h2 class="section-heading">找到<em>我</em></h2>
-        </div>
-        <div class="contact-list">
-          <a
-            href="javascript:void(0);"
-            class="contact-row reveal reveal-d1"
-            onclick="copyQQ()"
-            target="_self"
+          <div
+            class="bg-white dark:bg-dark-800 rounded-2xl shadow-card p-6 md:p-8 transition-custom hover:shadow-hover border border-gray-200 dark:border-dark-700 flex flex-col items-center text-center group"
           >
-            <div class="contact-icon">
-              <i class="fa-brands fa-qq"></i>
+            <h2
+              class="text-xl font-bold text-gray-900 dark:text-white mb-2 transition-custom"
+            >
+              微信支付
+            </h2>
+            <div
+              class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2"
+            >
+              感谢
             </div>
-            <div class="contact-label">
-              <span class="contact-label-name">QQ</span>
-              <span class="contact-label-value">点击复制QQ</span>
+            <p
+              class="text-gray-500 dark:text-gray-400 text-sm mb-6 transition-custom"
+            >
+              感谢您的赞助<br />——派大星
+            </p>
+            <div
+              class="w-48 h-48 rounded-2xl overflow-hidden border-4 border-gray-100 dark:border-dark-700 group-hover:border-primary/50 transition-custom mb-4 bg-white p-2"
+            >
+              <img
+                src="img/wechat.png"
+                alt="微信支付"
+                class="w-full h-full object-contain"
+              />
             </div>
-          </a>
+            <p
+              class="text-xs text-gray-400 dark:text-gray-500 mt-auto transition-custom"
+            >
+              微信扫一扫 • 有你才更美好
+            </p>
+          </div>
 
-          <a
-            href="https://space.bilibili.com/317050115"
-            class="contact-row reveal reveal-d2"
-            target="_blank"
+          <div
+            class="bg-white dark:bg-dark-800 rounded-2xl shadow-card p-6 md:p-8 transition-custom hover:shadow-hover border border-gray-200 dark:border-dark-700 flex flex-col items-center text-center group"
           >
-            <div class="contact-icon">
-              <i class="fa-brands fa-bilibili"></i>
+            <h2
+              class="text-xl font-bold text-gray-900 dark:text-white mb-2 transition-custom"
+            >
+              支付宝支付
+            </h2>
+            <div
+              class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500 mb-2"
+            >
+              感谢
             </div>
-            <div class="contact-label">
-              <span class="contact-label-name">哔哩哔哩</span>
-              <span class="contact-label-value">派大星_TuT</span>
+            <p
+              class="text-gray-500 dark:text-gray-400 text-sm mb-6 transition-custom"
+            >
+              感谢您的赞助<br />——派大星
+            </p>
+            <div
+              class="w-48 h-48 rounded-2xl overflow-hidden border-4 border-gray-100 dark:border-dark-700 group-hover:border-primary/50 transition-custom mb-4 bg-white p-2"
+            >
+              <img
+                src="img/alipay.png"
+                alt="支付宝支付"
+                class="w-full h-full object-contain"
+              />
             </div>
-          </a>
-
-          <a
-            href="https://github.com/PaidaxingTuT"
-            class="contact-row reveal reveal-d3"
-            target="_blank"
-          >
-            <div class="contact-icon">
-              <i class="fa-brands fa-github"></i>
-            </div>
-            <div class="contact-label">
-              <span class="contact-label-name">Github</span>
-              <span class="contact-label-value">PaidaxingTuT</span>
-            </div>
-          </a>
-
-          <a
-            href="mailto:paidaxing_tut@outlook.com"
-            class="contact-row reveal reveal-d4"
-            target="_self"
-          >
-            <div class="contact-icon">
-              <i class="fa-solid fa-envelope"></i>
-            </div>
-            <div class="contact-label">
-              <span class="contact-label-name">Email</span>
-              <span class="contact-label-value">paidaxing_tut@outlook.com</span>
-            </div>
-          </a>
-
-          <a
-            href="https://qm.qq.com/cgi-bin/qm/qr?k=IsRlx2v8D6K43iCryyy5kfRGckQSkepa&amp;jump_from=webapi&amp;authKey=Nk4t+qYsYUnrUhIaykPtS7O78KR5/f5LKj0DeL+bWIrqY+LOzQD4tIQ+PHJBMxXa"
-            class="contact-row reveal reveal-d5"
-            target="_blank"
-          >
-            <div class="contact-icon">
-              <i class="fa-solid fa-users"></i>
-            </div>
-            <div class="contact-label">
-              <span class="contact-label-name">交流群</span>
-              <span class="contact-label-value">加入交流群</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="footer-inner">
-        <p class="footer-text">&copy; 2026 派大星</p>
-
-        <div class="footer-runtime">
-          <span id="runtime_span"></span>
+            <p
+              class="text-xs text-gray-400 dark:text-gray-500 mt-auto transition-custom"
+            >
+              支付宝扫一扫 • 每一份支持都珍贵
+            </p>
+          </div>
         </div>
 
-        <div class="footer-links">
-          <a href="check">课程进度查询</a>
-          <a href="pay">赞助我们</a>
+        <div
+          class="text-center mt-12 text-gray-500 dark:text-gray-400 transition-custom"
+        >
+          <p>感谢您的慷慨解囊，让本站活下去~</p>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="bg-white dark:bg-dark-800 text-gray-500 dark:text-gray-400 py-8 border-t border-gray-200 dark:border-dark-700 transition-custom mt-auto"
+    >
+      <div class="container mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center text-sm"
+        >
+          <div class="mb-4 md:mb-0 text-center md:text-left">
+            <p>&copy; 2025 大星科技. 保留所有权利.</p>
+            <p class="mt-1 text-xs opacity-75">
+              感谢每一位选择相信和支持的朋友，你们是最亮的星✨
+            </p>
+          </div>
+          <div class="flex space-x-6">
+            <a
+              href="/"
+              class="hover:text-gray-900 dark:hover:text-white transition-custom"
+              ><span>返回首页</span></a
+            >
+            <a
+              href="/check"
+              class="hover:text-gray-900 dark:hover:text-white transition-custom"
+              ><span>进度查询</span></a
+            >
+          </div>
         </div>
       </div>
     </footer>
 
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <script src="main.js"></script>
+    <script>
+      const themeToggle = document.getElementById("themeToggle");
+      const htmlElement = document.documentElement;
+
+      function updateThemeIcon() {
+        if (htmlElement.classList.contains("dark")) {
+          themeToggle.textContent = "☀️";
+        } else {
+          themeToggle.textContent = "🌙";
+        }
+      }
+
+      updateThemeIcon();
+
+      themeToggle.addEventListener("click", () => {
+        htmlElement.classList.toggle("dark");
+        updateThemeIcon();
+      });
+    </script>
   </body>
 </html>
-<!--
-展示胎记
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣼⣇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣾⠏⢿⣧⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢠⣾⠟⠄⠈⢻⣦⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⠄⠄⠄⠄⢠⣾⠛⠄⢀⡀⠄⠻⣷⡀⠄⠄⠄⢀⣀⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⣀⣴⣾⠟⠻⢷⣶⠄⢰⣾⠏⢀⣶⠿⢷⣶⣄⡉⠳⠄⠰⡾⠿⠛⠿⣷⣤⣀⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⢸⣿⠁⠄⣤⡤⠄⠄⠄⢻⣷⣤⡈⠄⠄⠄⠈⠛⠿⣷⣤⡀⠄⠄⣦⣄⠄⢹⣿⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⢸⣿⠄⢸⡇⠄⣤⣤⣤⣤⣄⡉⠻⢿⣦⣄⡙⠟⠄⠈⠉⠻⣿⣶⠄⢸⡇⢸⣿⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠘⢿⣤⠄⠃⠄⣿⠉⠉⠉⢉⣉⣀⣀⣉⣛⣿⣶⣤⠄⢠⡆⣿⡿⠄⢈⣤⣾⠿⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠛⣦⠄⠄⣿⠄⠄⠄⢸⣿⣟⠛⠛⠛⢛⣿⡿⠄⠜⠃⣀⣤⡾⠟⠋⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⡀⠄⣿⠄⢰⡆⢸⣿⢿⣦⠄⢀⣼⠟⠄⣠⣴⡾⠟⢉⠄⡆⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⣴⡇⠄⣿⠄⠄⠁⢸⣿⠄⢻⣧⣼⣿⣾⠿⠛⠁⠄⣾⣿⠄⣿⣆⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⢀⣾⡿⠁⠄⢿⣦⣀⠄⢸⣿⠄⠄⠹⠟⠋⠄⣶⠇⢀⣀⣿⡿⠄⠈⢿⣆⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⢀⣼⠟⠄⠄⠄⠈⠉⠛⠇⢸⣿⠄⠄⠄⠄⠄⢀⣤⣶⡾⠛⠉⠄⠄⠄⠈⢿⣦⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠠⠾⠿⠿⠿⠿⠿⠿⠿⠶⠄⢸⣿⠄⣶⣤⣤⡾⠿⠛⠁⠤⠾⠿⠿⠿⠿⠿⠿⠿⠧⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⠄⠈⠙⠉⢁⡀⠄⣶⡆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⠄⠛⢦⡾⠛⠁⣴⡟⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⠿⣶⣦⣀⣀⣴⡾⠿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠙⠻⠛⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
-
--->

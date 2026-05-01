@@ -9,6 +9,7 @@ function updateDayCounter() {
     if (numberElement) {
         numberElement.textContent = diffDays;
     }
+    document.title = `天音彼方 毕业纪念-Day ${diffDays}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

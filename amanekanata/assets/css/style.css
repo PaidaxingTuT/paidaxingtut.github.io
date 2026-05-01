@@ -502,7 +502,7 @@ body.nav-open .site-nav {
 /* Article Section      */
 /* ==================== */
 .article-section {
-    background: var(--cream-white);
+    background: linear-gradient(180deg, #F0F6FF 0%, #FDF8F4 100%);
     padding: 60px 0 80px;
 }
 
@@ -510,20 +510,22 @@ body.nav-open .site-nav {
     max-width: 700px;
     margin: 0 auto;
     position: relative;
+    font-family: 'Noto Sans SC', 'Zen Maru Gothic', sans-serif;
 }
 
 .article-body p {
     font-size: 1.05em;
-    line-height: 2;
-    color: var(--text-dark);
-    margin-bottom: 1.2em;
+    line-height: 2.2;
+    color: #555;
+    font-weight: 300;
+    margin-bottom: 1.4em;
     text-indent: 2em;
 }
 
 .article-body p:first-child {
     font-size: 1.15em;
-    color: var(--kanata-blue-dark);
-    font-weight: 500;
+    color: var(--kanata-blue);
+    font-weight: 400;
 }
 
 .article-body p:last-child {
@@ -534,6 +536,7 @@ body.nav-open .site-nav {
     max-width: 700px;
     margin: 40px auto 0;
     text-align: right;
+    font-family: 'Zen Maru Gothic', 'Noto Sans SC', sans-serif;
 }
 
 .signature-name {

@@ -594,6 +594,24 @@ footer {
     line-height: 1.6;
 }
 
+.site-source {
+    text-align: center;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
+}
+
+.site-source a {
+    color: var(--kanata-blue-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.site-source a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
 /* ==================== */
 /* Back to Top          */
 /* ==================== */

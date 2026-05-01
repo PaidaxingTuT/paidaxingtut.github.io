@@ -1,133 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="天音彼方毕业纪念网站 | Amane Kanata Memorial Website">
-    <meta property="og:title" content="天音彼方毕业纪念 | Amane Kanata Memorial">
-    <meta property="og:description" content="Forever Kanata - 永远的彼方">
-    <meta property="og:image" content="images/kanata-header.png">
-    <meta property="og:url" content="https://eienkanata.com/">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="天音彼方毕业纪念网站 | Amane Kanata Memorial Website"
+    />
+    <meta
+      property="og:title"
+      content="天音彼方毕业纪念 | Amane Kanata Memorial"
+    />
+    <meta property="og:description" content="Forever Kanata - 永远的彼方" />
+    <meta property="og:image" content="images/kanata-header.png" />
+    <meta property="og:url" content="https://eienkanata.com/" />
     <title>天音彼方 毕业纪念</title>
-    <link rel="icon" type="image/png" href="shooting-star.png">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/gallery.css">
+    <link rel="icon" type="image/png" href="shooting-star.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/gallery.css" />
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;500;700&family=Noto+Sans+SC:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;500;700&family=Noto+Sans+SC:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- 导航栏 -->
     <nav class="site-nav">
-        <div class="nav-left">
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span class="hamburger"></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="#gallery-section">画廊</a></li>
-                <li><a href="https://www.youtube.com/channel/UCZlDXzGoo7d44bwdNObFacg" target="_blank">YouTube</a></li>
-                <li><a href="https://x.com/amanekanatach" target="_blank">Twitter</a></li>
-            </ul>
-        </div>
-        <div class="nav-right">
-            <a href="/" class="nav-home-link">返回首页</a>
-        </div>
+      <div class="nav-left">
+        <button
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <span class="hamburger"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#gallery-section">画廊</a></li>
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UCZlDXzGoo7d44bwdNObFacg"
+              target="_blank"
+              >YouTube</a
+            >
+          </li>
+          <li>
+            <a href="https://x.com/amanekanatach" target="_blank">Twitter</a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <a href="/" class="nav-home-link">返回首页</a>
+      </div>
     </nav>
 
     <!-- 手机版导航菜单 -->
     <div class="mobile-nav">
-        <ul class="nav-links">
-            <li><a href="/">返回首页</a></li>
-            <li><a href="#gallery-section">画廊</a></li>
-            <li><a href="https://www.youtube.com/channel/UCZlDXzGoo7d44bwdNObFacg" target="_blank">YouTube</a></li>
-            <li><a href="https://x.com/amanekanatach" target="_blank">Twitter</a></li>
-        </ul>
+      <ul class="nav-links">
+        <li><a href="/">返回首页</a></li>
+        <li><a href="#gallery-section">画廊</a></li>
+        <li>
+          <a
+            href="https://www.youtube.com/channel/UCZlDXzGoo7d44bwdNObFacg"
+            target="_blank"
+            >YouTube</a
+          >
+        </li>
+        <li>
+          <a href="https://x.com/amanekanatach" target="_blank">Twitter</a>
+        </li>
+      </ul>
     </div>
 
     <div class="nav-spacer"></div>
 
     <!-- 主要 Header -->
     <header class="main-header">
-        <div class="header-bg"></div>
-        <div class="header-content">
-            <h1>天音彼方 毕业纪念</h1>
-            <div class="counter-container">
-                <p class="counter-prefix">自毕业日 2025/12/27 后过了</p>
-                <h2 class="counter-number">
-                    <span id="day-counter-number">0</span>
-                    <span class="counter-unit">天</span>
-                </h2>
-            </div>
+      <div class="header-bg"></div>
+      <div class="header-content">
+        <h1>天音彼方 毕业纪念</h1>
+        <div class="counter-container">
+          <p class="counter-prefix">自毕业日 2025/12/27 后过了</p>
+          <h2 class="counter-number">
+            <span id="day-counter-number">0</span>
+            <span class="counter-unit">天</span>
+          </h2>
         </div>
+      </div>
     </header>
 
     <!-- 主要内容 -->
     <main>
-        <!-- 纪念介绍区块 -->
-        <section id="intro" class="content-section intro-section reveal-on-scroll">
-            <div class="container">
-                <h2>最强最完美的PP天使</h2>
-                <p>
-                    这是一个为了分享天音彼方的回忆，并永远铭记与她共度时光的嘿民纪念网站。彼方留给我们的歌声、笑容，以及无数的回忆，将陪伴我们继续前进。
-                </p>
-            </div>
-        </section>
+      <!-- 纪念介绍区块 -->
+      <section
+        id="intro"
+        class="content-section intro-section reveal-on-scroll"
+      >
+        <div class="container">
+          <h2>最强最完美的PP天使</h2>
+          <p>
+            这是一个为了分享天音彼方的回忆，并永远铭记与她共度时光的嘿民纪念网站。彼方留给我们的歌声、笑容，以及无数的回忆，将陪伴我们继续前进。
+          </p>
+        </div>
+      </section>
 
-        <!-- 画廊区 -->
-        <section id="gallery-section" class="gallery-section reveal-on-scroll">
-            <div class="container">
-                <h2>最强最完美的PP天使回忆画廊</h2>
-                <div id="gallery-grid"></div>
-                <div class="gallery-empty" id="gallery-empty" style="display:none;">
-                    <p>暂无图片</p>
-                </div>
-            </div>
-        </section>
-
+      <!-- 画廊区 -->
+      <section id="gallery-section" class="gallery-section reveal-on-scroll">
+        <div class="container">
+          <h2>最强最完美的PP天使回忆画廊</h2>
+          <div id="gallery-grid"></div>
+          <div class="gallery-empty" id="gallery-empty" style="display: none">
+            <p>暂无图片</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
-        <div class="lightbox-content">
-            <button class="lightbox-close">&times;</button>
-            <button class="lightbox-nav lightbox-prev">&#10094;</button>
-            <button class="lightbox-nav lightbox-next">&#10095;</button>
-            <div class="lightbox-image"></div>
-            <div class="lightbox-info"></div>
-        </div>
+      <div class="lightbox-content">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-nav lightbox-prev">&#10094;</button>
+        <button class="lightbox-nav lightbox-next">&#10095;</button>
+        <div class="lightbox-image"></div>
+        <div class="lightbox-info"></div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <p class="forever-kanata">永远的彼方</p>
-            <div class="credits">
-                <p>Credits:</p>
-                <ul>
-                    <li>Header: <a href="https://www.youtube.com/watch?v=IdXhY6zGC4s" target="_blank">誰も見てない夢を見ろ - 天音かなた</a></li>
-                    <li><a href="https://www.flaticon.com/free-icons/star" title="star icons" target="_blank">Star icons created by Freepik - Flaticon</a></li>
-                </ul>
-            </div>
-            <div class="copyright-notice">
-                <p class="disclaimer">
-                    此网站为非官方粉丝纪念网站，与 COVER 株式会社无任何关联。
-                </p>
-                <p class="copyright-text">
-                    本站使用之图片及影像素材版权属于：© COVER Corp. / hololive production
-                </p>
-                <p class="non-commercial">
-                    本站不进行任何营利活动，包含但不限于广告、赞助、周边贩售或收费纪念品等。
-                </p>
-            </div>
+      <div class="container">
+        <p class="forever-kanata">永远的彼方</p>
+        <div class="credits">
+          <p>Credits:</p>
+          <ul>
+            <li>
+              Header:
+              <a
+                href="https://www.youtube.com/watch?v=IdXhY6zGC4s"
+                target="_blank"
+                >誰も見てない夢を見ろ - 天音かなた</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.flaticon.com/free-icons/star"
+                title="star icons"
+                target="_blank"
+                >Star icons created by Freepik - Flaticon</a
+              >
+            </li>
+          </ul>
         </div>
+        <div class="copyright-notice">
+          <p class="disclaimer">
+            此网站为非官方粉丝纪念网站，与 COVER 株式会社无任何关联。
+          </p>
+          <p class="copyright-text">
+            本站使用之图片及影像素材版权属于：© COVER Corp. / hololive
+            production
+          </p>
+          <p class="non-commercial">
+            本站不进行任何营利活动，包含但不限于广告、赞助、周边贩售或收费纪念品等。
+          </p>
+        </div>
+        <p class="site-source">
+          本站代码来自 <a href="https://github.com/bcoffee0630/kanata-graduation-tribute" target="_blank" rel="noreferrer">GitHub @bcoffee0630</a>
+        </p>
+      </div>
     </footer>
 
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 19V5M5 12l7-7 7 7"/>
-        </svg>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
     </button>
 
     <script src="assets/js/counter.js"></script>
@@ -136,77 +192,85 @@
     <script src="assets/js/effects.js"></script>
     <script src="assets/js/scroll-top.js"></script>
     <script>
-    (function() {
-        const siteNav = document.querySelector('.site-nav');
+      (function () {
+        const siteNav = document.querySelector(".site-nav");
         let lastScrollY = window.scrollY;
         let ticking = false;
         const scrollThreshold = 5;
 
         function updateNavbar() {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY <= 10) {
-                siteNav.classList.remove('nav-hidden');
-                lastScrollY = currentScrollY;
-                ticking = false;
-                return;
-            }
-            if (document.body.classList.contains('nav-open')) {
-                lastScrollY = currentScrollY;
-                ticking = false;
-                return;
-            }
-            const scrollDelta = currentScrollY - lastScrollY;
-            if (scrollDelta > scrollThreshold) {
-                siteNav.classList.add('nav-hidden');
-            } else if (scrollDelta < -scrollThreshold) {
-                siteNav.classList.remove('nav-hidden');
-            }
+          const currentScrollY = window.scrollY;
+          if (currentScrollY <= 10) {
+            siteNav.classList.remove("nav-hidden");
             lastScrollY = currentScrollY;
             ticking = false;
+            return;
+          }
+          if (document.body.classList.contains("nav-open")) {
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+          const scrollDelta = currentScrollY - lastScrollY;
+          if (scrollDelta > scrollThreshold) {
+            siteNav.classList.add("nav-hidden");
+          } else if (scrollDelta < -scrollThreshold) {
+            siteNav.classList.remove("nav-hidden");
+          }
+          lastScrollY = currentScrollY;
+          ticking = false;
         }
 
-        window.addEventListener('scroll', () => {
+        window.addEventListener(
+          "scroll",
+          () => {
             if (!ticking) {
-                requestAnimationFrame(updateNavbar);
-                ticking = true;
+              requestAnimationFrame(updateNavbar);
+              ticking = true;
             }
-        }, { passive: true });
+          },
+          { passive: true },
+        );
 
-        const navToggle = document.querySelector('.nav-toggle');
-        const mobileNav = document.querySelector('.mobile-nav');
+        const navToggle = document.querySelector(".nav-toggle");
+        const mobileNav = document.querySelector(".mobile-nav");
 
         if (navToggle && mobileNav) {
-            navToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isOpen = mobileNav.classList.toggle('open');
-                navToggle.classList.toggle('active');
-                navToggle.setAttribute('aria-expanded', isOpen);
-                document.body.classList.toggle('nav-open', isOpen);
-            });
+          navToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = mobileNav.classList.toggle("open");
+            navToggle.classList.toggle("active");
+            navToggle.setAttribute("aria-expanded", isOpen);
+            document.body.classList.toggle("nav-open", isOpen);
+          });
 
-            mobileNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('open');
-                    navToggle.classList.remove('active');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                    document.body.classList.remove('nav-open');
-                });
+          mobileNav.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              mobileNav.classList.remove("open");
+              navToggle.classList.remove("active");
+              navToggle.setAttribute("aria-expanded", "false");
+              document.body.classList.remove("nav-open");
             });
+          });
         }
 
         // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    const navHeight = siteNav.offsetHeight;
-                    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
-            });
+        document.querySelectorAll('a[href^="#"]').forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const target = document.querySelector(link.getAttribute("href"));
+            if (target) {
+              e.preventDefault();
+              const navHeight = siteNav.offsetHeight;
+              const top =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                navHeight -
+                10;
+              window.scrollTo({ top, behavior: "smooth" });
+            }
+          });
         });
-    })();
+      })();
     </script>
-</body>
+  </body>
 </html>

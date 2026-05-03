@@ -1320,7 +1320,7 @@ footer.scrolled {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 200px;
+    width: 240px;
     height: 100vh;
     background: var(--card);
     flex-direction: column;

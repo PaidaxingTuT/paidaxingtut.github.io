@@ -1303,7 +1303,8 @@ footer.scrolled {
 }
 
 /* ========== 768px 以下平板适配 ========== */
-@media (max-width: 768px) {
+@media (max-width: 768px),
+  (hover: none) and (pointer: coarse) and (max-width: 1024px) {
   nav {
     padding: 12px 20px;
   }

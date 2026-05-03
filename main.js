@@ -83,7 +83,13 @@ if (navToggle && navLinks) {
   });
 }
 
-const isMobile = () => window.innerWidth <= 768;
+const isMobile = () => {
+  const shortSide = Math.min(window.innerWidth, window.innerHeight);
+  const coarsePointer =
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(hover: none)").matches;
+  return window.innerWidth <= 768 || (coarsePointer && shortSide <= 900);
+};
 
 const sections = document.querySelectorAll("section[id]");
 const journeySection = document.getElementById("journey");

@@ -447,10 +447,40 @@ document.addEventListener("DOMContentLoaded", function () {
   overlay.addEventListener("click", closeModal);
 });
 
+function setupPageViewCounterFallback() {
+  const container = document.getElementById("busuanzi_container_site_pv");
+  const value = document.getElementById("busuanzi_value_site_pv");
+  if (!container || !value) return;
+
+  let settled = false;
+  const revealWhenReady = () => {
+    const text = (value.textContent || "").trim();
+    if (!text) return false;
+    container.style.display = "inline";
+    settled = true;
+    return true;
+  };
+
+  if (revealWhenReady()) return;
+
+  const poll = setInterval(() => {
+    if (revealWhenReady()) clearInterval(poll);
+  }, 300);
+
+  setTimeout(() => {
+    if (settled) return;
+    clearInterval(poll);
+    container.style.display = "inline";
+    value.textContent = "--";
+    container.title = "PV counter unavailable";
+  }, 4500);
+}
+
 window.onload = () => {
   checkNav();
   updateJourney();
   show_runtime();
   fetchHitokoto();
+  setupPageViewCounterFallback();
 };
 

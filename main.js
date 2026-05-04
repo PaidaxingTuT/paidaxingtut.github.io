@@ -67,7 +67,6 @@ const checkNav = () => {
   footer.classList.toggle("scrolled", scrolled);
 };
 
-// ========== 姹夊牎鑿滃崟 ==========
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
 if (navToggle && navLinks) {
@@ -136,7 +135,6 @@ function goToSection(index) {
 window.addEventListener(
   "wheel",
   (e) => {
-    // 绉诲姩绔娇鐢ㄥ師鐢熸粴鍔?
     if (isMobile()) return;
 
     const modal = document.getElementById("logModal");
@@ -197,10 +195,8 @@ window.addEventListener(
 );
 
 function updateJourney() {
-  // 绉诲姩绔細鐢?IntersectionObserver 澶勭悊閲岀▼纰戞樉闅?
   if (isMobile()) return;
 
-  // PC 绔細姘村钩鏃堕棿绾?+ 鐏
   const rect = journeySection.getBoundingClientRect();
   const sectionHeight = journeySection.offsetHeight;
   const viewportHeight = window.innerHeight;
@@ -247,7 +243,6 @@ document
   .querySelectorAll(".reveal")
   .forEach((el) => revealObserver.observe(el));
 
-// 绉诲姩绔噷绋嬬锛氬己琛岄噸缃墍鏈夋闈㈢瀹氫綅灞炴€?
 function resetMilestonesForMobile() {
   const mobile = isMobile();
   milestones.forEach((ms, index) => {
@@ -286,7 +281,6 @@ window.addEventListener(
       updateJourney();
       checkNav();
 
-      // 绉诲姩绔笉浣跨敤 section-based scroll
       if (isMobile()) return;
 
       if (!isScrolling) {
@@ -328,7 +322,7 @@ window.addEventListener("resize", () => {
     updateJourney();
     resetMilestonesForMobile();
   });
-  // 鏃嬭浆灞忓箷鏃跺叧闂彍鍗?
+
   if (navToggle && navLinks) {
     navToggle.classList.remove("active");
     navLinks.classList.remove("open");
@@ -430,7 +424,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           logBody.innerText = data;
         }
-
       })
       .catch((err) => {
         logBody.innerHTML = "<p>读取失败</p>";
@@ -483,4 +476,3 @@ window.onload = () => {
   fetchHitokoto();
   setupPageViewCounterFallback();
 };
-

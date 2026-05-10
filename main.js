@@ -90,109 +90,24 @@ const isMobile = () => {
   return window.innerWidth <= 768 || (coarsePointer && shortSide <= 900);
 };
 
-const sections = document.querySelectorAll("section[id]");
 const journeySection = document.getElementById("journey");
 const rocketWrapper = document.getElementById("rocketWrapper");
 const trackProgress = document.getElementById("trackProgress");
 const track = document.getElementById("journeyTrack");
 const milestones = document.querySelectorAll(".milestone");
 
-let isScrolling = false;
-const total = sections.length;
-const journeyIndex = 1;
-
-const triggerZone = 100;
-
-function getCurrentSectionIndex() {
-  const scrollCenter = window.scrollY + window.innerHeight / 2;
-  let idx = 0;
-  sections.forEach((section, i) => {
-    const top = section.offsetTop;
-    const bottom = top + section.offsetHeight;
-    if (scrollCenter >= top && scrollCenter < bottom) {
-      idx = i;
-    }
-  });
-  return idx;
-}
-
-function goToSection(index) {
-  if (index < 0 || index >= total || isScrolling) return;
-
-  isScrolling = true;
-  const targetTop = sections[index].offsetTop;
-
-  window.scrollTo({
-    top: targetTop,
-    behavior: "smooth",
-  });
-
-  setTimeout(() => {
-    isScrolling = false;
-  }, 800);
-}
-
-window.addEventListener(
-  "wheel",
-  (e) => {
-    if (isMobile()) return;
-
-    const modal = document.getElementById("logModal");
-    if (modal && modal.classList.contains("active")) return;
-
-    if (isScrolling) {
-      e.preventDefault();
-      return;
-    }
-
-    const scrollTop = window.scrollY;
-    const scrollCenter = scrollTop + window.innerHeight / 2;
-    const journeyTop = journeySection.offsetTop;
-    const maxScrollTop =
-      journeyTop + journeySection.offsetHeight - window.innerHeight;
-
-    let current = 0;
-    sections.forEach((section, i) => {
-      const top = section.offsetTop;
-      const bottom = top + section.offsetHeight;
-      if (scrollCenter >= top && scrollCenter < bottom) {
-        current = i;
-      }
-    });
-
-    if (
-      current === journeyIndex &&
-      scrollTop >= maxScrollTop - triggerZone &&
-      e.deltaY > 0
-    ) {
-      e.preventDefault();
-      goToSection(current + 1);
-      return;
-    }
-
-    if (current === journeyIndex) {
-      const nearTop = scrollTop <= journeyTop + triggerZone;
-
-      if (nearTop && e.deltaY < 0) {
+const modal = document.getElementById("logModal");
+if (modal) {
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      if (modal.classList.contains("active")) {
         e.preventDefault();
-        goToSection(current - 1);
-        return;
       }
-
-      return;
-    }
-
-    e.preventDefault();
-    if (Math.abs(e.deltaY) < 10) return;
-
-    if (e.deltaY > 0) {
-      goToSection(current + 1);
-    } else {
-      goToSection(current - 1);
-    }
-  },
-  { passive: false },
-);
+    },
+    { passive: false },
+  );
+}
 
 function updateJourney() {
   if (isMobile()) return;
@@ -263,55 +178,17 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     const id = this.getAttribute("href").slice(1);
     const target = document.getElementById(id);
     if (target) {
-      if (isMobile()) {
-        target.scrollIntoView({ behavior: "smooth" });
-      } else {
-        const index = Array.from(sections).indexOf(target);
-        if (index !== -1) goToSection(index);
-      }
+      target.scrollIntoView({ behavior: "smooth" });
     }
   });
 });
 
-let lastScrollTop = 0;
 window.addEventListener(
   "scroll",
   () => {
     requestAnimationFrame(() => {
       updateJourney();
       checkNav();
-
-      if (isMobile()) return;
-
-      if (!isScrolling) {
-        const scrollTop = window.scrollY;
-        const scrollCenter = scrollTop + window.innerHeight / 2;
-        const journeyTop = journeySection.offsetTop;
-        const maxScrollTop =
-          journeyTop + journeySection.offsetHeight - window.innerHeight;
-
-        let current = 0;
-        sections.forEach((section, i) => {
-          const top = section.offsetTop;
-          const bottom = top + section.offsetHeight;
-          if (scrollCenter >= top && scrollCenter < bottom) {
-            current = i;
-          }
-        });
-
-        if (current === journeyIndex && scrollTop > maxScrollTop) {
-          isScrolling = true;
-          window.scrollTo({
-            top: sections[current + 1].offsetTop,
-            behavior: "smooth",
-          });
-          setTimeout(() => {
-            isScrolling = false;
-          }, 800);
-        }
-      }
-
-      lastScrollTop = window.scrollY;
     });
   },
   { passive: true },

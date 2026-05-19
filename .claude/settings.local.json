@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(git revert *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(Select-String \"abba0df\")",
+      "Bash(git reset *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ]
+  }
+}

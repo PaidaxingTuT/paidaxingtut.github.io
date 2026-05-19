@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MacPage | Paidaxing Studio</title>
+    <meta
+      name="description"
+      content="Paidaxing Studio 的 macOS 桌面风格个人主页。"
+    />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link
+      rel="preload"
+      href="assets/Mac.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wallpaper-shade"></div>
+
+    <header class="menu-bar">
+      <div class="menu-left">
+        <button class="apple-button" id="appleButton" aria-label="打开关于我">
+          <i class="fa-brands fa-apple"></i>
+        </button>
+        <span class="menu-title" id="menuTitle">Paidaxing Studio</span>
+        <a class="menu-link" href="../check">刷课查询</a>
+        <a class="menu-link" href="../pay">赞助页面</a>
+        <a class="menu-link" href="../amanekanata">亡妻纪念页</a>
+      </div>
+
+      <div class="menu-center">
+        <span class="menu-hitokoto" id="hitokotoText">一言加载中...</span>
+      </div>
+
+      <div class="menu-right">
+        <span class="menu-box menu-box-pv"
+          >访问 <strong id="busuanzi_value_site_pv">--</strong></span
+        >
+        <span class="menu-box menu-box-runtime" id="runtimeText"
+          >网站已运行 -- 天</span
+        >
+        <span class="menu-box menu-box-icon" aria-label="Wi-Fi"
+          ><i class="fa-solid fa-wifi"></i
+        ></span>
+        <span class="menu-box menu-box-date" id="dateText">--</span>
+        <span class="menu-box menu-box-time" id="clockText">--:--:--</span>
+      </div>
+    </header>
+
+    <main class="desktop" id="desktop">
+      <section class="desktop-icons" id="desktopIcons" aria-label="桌面应用">
+        <button class="desktop-icon" data-app-key="about" data-open-app="about">
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"
+              ><i class="fa-regular fa-address-card"></i
+            ></span>
+          </span>
+          <span class="icon-label">关于我</span>
+        </button>
+
+        <button
+          class="desktop-icon"
+          data-app-key="journey"
+          data-open-app="journey"
+        >
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"><i class="fa-solid fa-timeline"></i></span>
+          </span>
+          <span class="icon-label">历程</span>
+        </button>
+
+        <button class="desktop-icon" data-app-key="stack" data-open-app="stack">
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"
+              ><i class="fa-solid fa-code-branch"></i
+            ></span>
+          </span>
+          <span class="icon-label">技术栈</span>
+        </button>
+
+        <button
+          class="desktop-icon"
+          data-app-key="projects"
+          data-open-app="projects"
+        >
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"
+              ><i class="fa-regular fa-folder-open"></i
+            ></span>
+          </span>
+          <span class="icon-label">项目</span>
+        </button>
+
+        <button
+          class="desktop-icon"
+          data-app-key="friends"
+          data-open-app="friends"
+        >
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"
+              ><i class="fa-solid fa-user-group"></i
+            ></span>
+          </span>
+          <span class="icon-label">友链</span>
+        </button>
+
+        <button
+          class="desktop-icon"
+          data-app-key="contact"
+          data-open-app="contact"
+        >
+          <span class="desktop-badge badge-folder">
+            <span class="badge-top"></span>
+            <span class="badge-face"
+              ><i class="fa-regular fa-envelope"></i
+            ></span>
+          </span>
+          <span class="icon-label">联系</span>
+        </button>
+
+        <button class="desktop-icon" data-app-key="log" data-open-app="log">
+          <span class="desktop-badge badge-doc">
+            <span class="badge-face"
+              ><i class="fa-regular fa-file-lines"></i
+            ></span>
+          </span>
+          <span class="icon-label">日志</span>
+        </button>
+      </section>
+
+      <section
+        class="window-layer"
+        id="windowLayer"
+        aria-live="polite"
+      ></section>
+    </main>
+
+    <footer class="dock-wrap">
+      <div class="dock" id="dock">
+        <div class="dock-pinned" id="dockPinned"></div>
+        <div class="dock-separator" id="dockSeparator" aria-hidden="true"></div>
+        <div class="dock-minimized" id="dockMinimized"></div>
+      </div>
+    </footer>
+
+    <template id="windowTemplate">
+      <article class="mac-window" role="dialog" aria-modal="false">
+        <div class="window-titlebar">
+          <div class="traffic-lights">
+            <button
+              class="traffic close"
+              data-action="close"
+              aria-label="关闭窗口"
+            ></button>
+            <button
+              class="traffic minimize"
+              data-action="minimize"
+              aria-label="最小化窗口"
+            ></button>
+            <button
+              class="traffic maximize"
+              data-action="maximize"
+              aria-label="放大或还原窗口"
+            ></button>
+          </div>
+          <div class="window-title-meta"></div>
+        </div>
+        <div class="window-content"></div>
+      </article>
+    </template>
+
+    <div class="context-menu" id="contextMenu" aria-hidden="true">
+      <div class="context-menu-inner" id="contextMenuInner"></div>
+    </div>
+
+    <script
+      async
+      src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>

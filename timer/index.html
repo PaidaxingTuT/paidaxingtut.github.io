@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>B站分P时长统计</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f1419;
+        --surface: #1a2332;
+        --accent: #3b82f6;
+        --accent-soft: rgba(59, 130, 246, 0.15);
+        --green: #22c55e;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --border: #30363d;
+      }
+
+      body.light-mode {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --accent: #2563eb;
+        --accent-soft: rgba(37, 99, 235, 0.1);
+        --text: #0f1419;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Noto Sans SC",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+
+      .top-controls {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        display: flex;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        overflow: hidden;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .top-controls:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .nav-home {
+        padding: 8px 16px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.2s;
+      }
+      .nav-home:hover {
+        background-color: var(--accent-soft);
+      }
+
+      .control-divider {
+        width: 1px;
+        height: 20px;
+        background-color: var(--border);
+      }
+
+      .theme-toggle {
+        padding: 8px 16px;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+      }
+      .theme-toggle:hover {
+        background-color: var(--accent-soft);
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      header {
+        padding: 48px 0 64px;
+        text-align: center;
+        position: relative;
+      }
+      .logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      body.light-mode .logo {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .tagline {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        font-weight: 400;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px var(--accent-soft);
+      }
+      .cta.secondary {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .cta.secondary:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      section {
+        padding: 40px 0;
+        border-top: 1px solid var(--border);
+      }
+      section h2 {
+        font-size: 1.35rem;
+        margin-bottom: 20px;
+        color: var(--text);
+      }
+      .features {
+        display: grid;
+        gap: 16px;
+      }
+      .feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 18px;
+        background: var(--surface);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      .feature h3 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .feature p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .steps {
+        list-style: none;
+        counter-reset: step;
+      }
+      .steps li {
+        counter-increment: step;
+        padding: 12px 0 12px 44px;
+        position: relative;
+        border-bottom: 1px solid var(--border);
+      }
+      .steps li:last-child {
+        border-bottom: none;
+      }
+      .steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        width: 28px;
+        height: 28px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .note {
+        background: var(--accent-soft);
+        border-radius: 10px;
+        padding: 16px 18px;
+        font-size: 0.95rem;
+        color: var(--text);
+        margin-top: 20px;
+      }
+
+      .note strong {
+        color: var(--accent);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+      table th, table td {
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+      table th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      table td {
+        color: var(--text-muted);
+      }
+
+      .subsection {
+        margin-top: 24px;
+      }
+      .subsection h3 {
+        font-size: 1.05rem;
+        margin-bottom: 10px;
+        color: var(--text);
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      ul li {
+        padding: 6px 0 6px 20px;
+        position: relative;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      ul li::before {
+        content: "•";
+        position: absolute;
+        left: 4px;
+        color: var(--accent);
+      }
+
+      code {
+        background: var(--surface);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+        color: var(--accent);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        padding: 48px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .copyright {
+        margin-top: 24px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        opacity: 0.8;
+      }
+
+      @media (max-width: 600px) {
+        .top-controls {
+          position: relative;
+          top: 0;
+          right: 0;
+          margin: 24px auto 0;
+          width: max-content;
+        }
+        header {
+          padding-top: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-controls">
+      <a href="http://www.pdxstudio.site/" class="nav-home" title="返回主页"
+        >返回主页</a
+      >
+      <div class="control-divider"></div>
+      <button id="theme-toggle" class="theme-toggle" title="切换日间/夜间模式">
+        ☀️
+      </button>
+    </div>
+
+    <header>
+      <div class="container">
+        <span class="hero-badge">Chrome 扩展</span>
+        <h1 class="logo">B站分P时长统计</h1>
+        <p class="tagline">
+          快速计算 B站多分P视频的总时长，支持区间计算、勾选统计和倍速换算。
+        </p>
+        <div class="btn-group">
+          <a href="https://github.com/AmaneKanata/bilibili-part-timer/releases" class="cta">立即下载</a>
+          <a
+            href="https://github.com/AmaneKanata/bilibili-part-timer"
+            class="cta secondary"
+            target="_blank"
+            rel="noopener"
+            >在 GitHub 查看</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <h2>功能亮点</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">🔢</div>
+            <div>
+              <h3>区间计算</h3>
+              <p>
+                输入起止分P编号，一键算出该区间内所有视频的总时长。
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">☑️</div>
+            <div>
+              <h3>勾选模式</h3>
+              <p>
+                勾选/取消单个分P，支持拖拽批量选择，实时统计选中时长。
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">⏩</div>
+            <div>
+              <h3>倍速换算</h3>
+              <p>
+                设定播放倍速（1.25x / 1.5x / 2x），自动换算实际观看耗时。
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🌓</div>
+            <div>
+              <h3>日夜模式适配</h3>
+              <p>
+                跟随 B站页面的深色/浅色主题自动切换，无需手动设置。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <div class="container">
+        <h2>安装方法</h2>
+        <ol class="steps">
+          <li>下载 <a href="https://github.com/AmaneKanata/bilibili-part-timer/releases">最新版本</a> 的 <code>bilibili-part-timer.zip</code> 并解压到一个文件夹。</li>
+          <li>打开 Chrome，地址栏输入 <code>chrome://extensions</code>，右上角打开「开发者模式」。</li>
+          <li>点击「加载已解压的扩展程序」，选择刚才解压的文件夹。</li>
+          <li>完成。打开任意 B站分P视频页面即可看到右侧的时钟按钮。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="usage">
+      <div class="container">
+        <h2>使用方法</h2>
+
+        <div class="subsection">
+          <h3>基础操作</h3>
+          <ul>
+            <li>打开任意 B站分P视频（如课程、番剧、合集），页面右侧会出现一个时钟图标按钮。</li>
+            <li>点击按钮展开统计面板。</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>区间计算</h3>
+          <ul>
+            <li>在「起始分P」和「结束分P」输入框中填入编号。</li>
+            <li>默认已填入当前播放分P和总分P数。</li>
+            <li>点击「计算区间时长」，结果以 <code>HH:MM:SS</code> 格式显示。</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>勾选模式</h3>
+          <ul>
+            <li>点击「选择模式」按钮开启。</li>
+            <li>每个分P左侧出现复选框，勾选需要统计的分P。</li>
+            <li>支持拖拽批量勾选：按住一个复选框并拖过其他项。</li>
+            <li>实时显示已选分P数量和总时长。</li>
+            <li>再次点击「选择模式」关闭。</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>倍速换算</h3>
+          <ul>
+            <li>在「播放倍速」输入框中设定倍速（默认 1.0，步进 0.25）。</li>
+            <li>计算结果自动除以倍速，显示的是实际观看所需时间。</li>
+          </ul>
+        </div>
+
+        <div class="note">
+          <strong>提示：</strong>扩展仅在你打开 B站视频页面（<code>*.bilibili.com/video/*</code>）时生效，无需任何权限，不会收集任何数据。
+        </div>
+      </div>
+    </section>
+
+    <section id="compatibility">
+      <div class="container">
+        <h2>兼容性说明</h2>
+        <table>
+          <tr><th>浏览器</th><th>支持</th></tr>
+          <tr><td>Chrome</td><td>完全支持</td></tr>
+          <tr><td>Edge</td><td>完全支持（基于 Chromium）</td></tr>
+          <tr><td>Arc / Brave / 其他 Chromium 内核</td><td>可用，未专门测试</td></tr>
+          <tr><td>Firefox</td><td>暂不支持（Manifest V3 兼容中）</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2>常见问题</h2>
+
+        <div class="subsection">
+          <h3>为什么打开B站视频没看到按钮？</h3>
+          <ul>
+            <li>确认页面是视频详情页（URL 包含 <code>/video/</code>）。</li>
+            <li>确认该视频包含多个分P，单P视频无需统计时长。</li>
+            <li>检查扩展是否已启用：<code>chrome://extensions</code> 中确保开关为开启状态。</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>按钮挡住了页面内容怎么办？</h3>
+          <ul>
+            <li>按钮只占极窄的一条边缘区域，面板在展开后固定宽度 190px。</li>
+            <li>如果确实遮挡，可以暂时收起面板，只在需要计算时打开。</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>时长统计不准？</h3>
+          <ul>
+            <li>时长数据直接读取B站页面上的显示值。如果B站页面显示的时长本身就存在舍入误差（通常 ±1 秒），计算结果也会有同样的偏差。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p style="margin-bottom: 10px">
+          B站分P时长统计 · 轻量 Chrome 扩展 · 快速计算视频观看时间
+        </p>
+        <p>
+          <a href="https://github.com/AmaneKanata/bilibili-part-timer">GitHub</a> · <a href="https://github.com/AmaneKanata/bilibili-part-timer/issues">反馈问题</a>
+        </p>
+        <p class="copyright">版权所有 &copy; 派大星</p>
+      </div>
+    </footer>
+
+    <script>
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme === "light") {
+        body.classList.add("light-mode");
+        themeToggleBtn.textContent = "🌙";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+
+        if (body.classList.contains("light-mode")) {
+          themeToggleBtn.textContent = "🌙";
+          localStorage.setItem("theme", "light");
+        } else {
+          themeToggleBtn.textContent = "☀️";
+          localStorage.setItem("theme", "dark");
+        }
+      });
+    </script>
+  </body>
+</html>

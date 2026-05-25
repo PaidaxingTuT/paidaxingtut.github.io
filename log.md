@@ -9,6 +9,7 @@
 - 2026.04.26 新增网站日志弹窗
 - 2026.05.01 新增天音彼方纪念页
 - 2026.05.03 三端适配（PC / 平板 / 手机）
+- 2026.05.07 新增 i18n (繁体/英语/日语)
 
 <small>点击[此处](https://github.com/PaidaxingTuT/paidaxingtut.github.io/commits)查看详细变更记录</small>
 

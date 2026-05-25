@@ -208,6 +208,7 @@ window.addEventListener("resize", () => {
 
 function copyQQ() {
   const qqNumber = "428488368";
+  var t = i18nData.texts[i18nData.currentLang].main;
   const tempInput = document.createElement("input");
   tempInput.value = qqNumber;
   tempInput.style.position = "fixed";
@@ -221,13 +222,13 @@ function copyQQ() {
     const successful = document.execCommand("copy");
     document.body.removeChild(tempInput);
     if (successful) {
-      alert("由于QQ限制，已复制派大星QQ，请手动添加，感谢理解");
+      alert(t.copyQQSuccess);
     } else {
-      prompt("复制失败，请手动复制QQ号：", qqNumber);
+      prompt(t.copyQQFail, qqNumber);
     }
   } catch (err) {
     document.body.removeChild(tempInput);
-    prompt("复制失败，请手动复制QQ号：", qqNumber);
+    prompt(t.copyQQFail, qqNumber);
   }
 }
 
@@ -240,9 +241,11 @@ function show_runtime() {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  const span = document.getElementById("runtime_span");
+  var t = i18nData.texts[i18nData.currentLang];
+  var ft = t.footer;
+  var span = document.getElementById("runtime_span");
   if (span) {
-    span.textContent = `本站勉强运行: ${days}天${hours}小时${minutes}分${seconds}秒`;
+    span.textContent = ft.runtime_prefix + ' ' + days + ft.days + hours + ft.hours + minutes + ft.minutes + seconds + ft.seconds;
   }
   setTimeout(show_runtime, 1000);
 }
@@ -259,17 +262,20 @@ async function fetchHitokoto() {
       fromEl.textContent = `— 「 ${data.from} 」`;
     }
   } catch (err) {
-    textEl.textContent = "代码与创意永不停歇。";
-    fromEl.textContent = "— Paidaxing Studio";
+    var t = i18nData.texts[i18nData.currentLang].main;
+    textEl.textContent = t.hitokotoFallback;
+    textEl.setAttribute('data-fallback', '1');
+    fromEl.textContent = t.hitokotoFrom;
+    fromEl.setAttribute('data-fallback', '1');
   }
 }
 
 function development() {
-  alert("功能开发中，敬请期待！");
+  alert(i18nData.texts[i18nData.currentLang].main.development);
 }
 
 function tobedecided() {
-  alert("敬请期待！");
+  alert(i18nData.texts[i18nData.currentLang].main.tobedecided);
 }
 
 document.addEventListener("contextmenu", function (e) {
@@ -290,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.add("no-scroll");
     document.documentElement.classList.add("no-scroll");
 
-    fetch("log.md")
+    fetch("log.md?v=1")
       .then((response) => {
         if (!response.ok) throw new Error("File not found");
         return response.text();
@@ -303,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch((err) => {
-        logBody.innerHTML = "<p>读取失败</p>";
+        logBody.innerHTML = "<p>" + i18nData.texts[i18nData.currentLang].main.logLoadFail + "</p>";
       });
   });
 
